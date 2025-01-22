@@ -2,8 +2,10 @@
 //  ViewController.swift
 //  stockStalker
 //
-//  Created by WISA Mobile on 1/14/25.
+//  Created by Wonsang Hwang on 1/14/25.
 //
+
+// urlsession delegate -> RX Proxy
 
 import UIKit
 
@@ -17,3 +19,6 @@ class ViewController: UIViewController {
 
 }
 
+extension ViewController: StreamDelegate, URLSessionStreamDelegate {
+    
+}

@@ -13,7 +13,6 @@
 		7E17518D2D36175D0097FE4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E17518B2D36175D0097FE4A /* Main.storyboard */; };
 		7E17518F2D3617610097FE4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E17518E2D3617610097FE4A /* Assets.xcassets */; };
 		7E1751922D3617610097FE4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1751902D3617610097FE4A /* LaunchScreen.storyboard */; };
-		7E1751A02D3617E10097FE4A /* TableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E17519F2D3617E10097FE4A /* TableViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +24,6 @@
 		7E17518E2D3617610097FE4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E1751912D3617610097FE4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7E1751932D3617610097FE4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7E17519F2D3617E10097FE4A /* TableViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TableViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +60,6 @@
 				7E1751872D36175D0097FE4A /* SceneDelegate.swift */,
 				7E1751892D36175D0097FE4A /* ViewController.swift */,
 				7E17518B2D36175D0097FE4A /* Main.storyboard */,
-				7E17519F2D3617E10097FE4A /* TableViewController.storyboard */,
 				7E17518E2D3617610097FE4A /* Assets.xcassets */,
 				7E1751902D3617610097FE4A /* LaunchScreen.storyboard */,
 				7E1751932D3617610097FE4A /* Info.plist */,
@@ -128,7 +125,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E1751A02D3617E10097FE4A /* TableViewController.storyboard in Resources */,
 				7E1751922D3617610097FE4A /* LaunchScreen.storyboard in Resources */,
 				7E17518F2D3617610097FE4A /* Assets.xcassets in Resources */,
 				7E17518D2D36175D0097FE4A /* Main.storyboard in Resources */,
