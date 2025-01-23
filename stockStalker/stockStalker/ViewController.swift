@@ -8,8 +8,12 @@
 // urlsession delegate -> RX Proxy
 
 import UIKit
+import RxCocoa
+import RxSwift
+import ReactorKit
 
 class ViewController: UIViewController {
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +23,8 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: StreamDelegate, URLSessionStreamDelegate {
+extension ViewController: View {
+    typealias Reactor = <#type#>
+    
     
 }
