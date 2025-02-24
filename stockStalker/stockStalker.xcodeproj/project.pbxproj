@@ -15,6 +15,7 @@
 		7E1751922D3617610097FE4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1751902D3617610097FE4A /* LaunchScreen.storyboard */; };
 		7E637A0F2D41CDBA007824A7 /* FirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E637A0E2D41CDBA007824A7 /* FirstViewModel.swift */; };
 		9350B4EEBB1B85C45AD08D0A /* Pods_stockStalker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC317963CA8638CDA3AC2C8 /* Pods_stockStalker.framework */; };
+		C17A92FB2D6C8DB40036625F /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17A92FA2D6C8DB40036625F /* ChartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		7E1751932D3617610097FE4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E637A0E2D41CDBA007824A7 /* FirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewModel.swift; sourceTree = "<group>"; };
 		B0B0A6E0FC925EC745E42642 /* Pods-stockStalker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stockStalker.debug.xcconfig"; path = "Target Support Files/Pods-stockStalker/Pods-stockStalker.debug.xcconfig"; sourceTree = "<group>"; };
+		C17A92FA2D6C8DB40036625F /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				7E1751902D3617610097FE4A /* LaunchScreen.storyboard */,
 				7E1751932D3617610097FE4A /* Info.plist */,
 				7E637A0E2D41CDBA007824A7 /* FirstViewModel.swift */,
+				C17A92FA2D6C8DB40036625F /* ChartView.swift */,
 			);
 			path = stockStalker;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				7E17518A2D36175D0097FE4A /* ViewController.swift in Sources */,
 				7E1751862D36175D0097FE4A /* AppDelegate.swift in Sources */,
 				7E1751882D36175D0097FE4A /* SceneDelegate.swift in Sources */,
+				C17A92FB2D6C8DB40036625F /* ChartView.swift in Sources */,
 				7E637A0F2D41CDBA007824A7 /* FirstViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,6 +387,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -415,6 +420,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
