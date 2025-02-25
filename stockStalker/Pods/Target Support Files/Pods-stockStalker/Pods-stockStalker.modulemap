@@ -1,6 +1,0 @@
-framework module Pods_stockStalker {
-  umbrella header "Pods-stockStalker-umbrella.h"
-
-  export *
-  module * { export * }
-}

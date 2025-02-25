@@ -6,25 +6,5 @@
 //
 
 import UIKit
-import RxSwift
-import ReactorKit
 
-class FirstViewModel: Reactor {
-    
-    enum Action {
-        case test
-    }
-    
-    enum Mutation {
-        case setTest(Int)
-    }
-    
-    struct State {
-        
-    }
-    
-    let initialState: State = State()
-    
-    
-}
 

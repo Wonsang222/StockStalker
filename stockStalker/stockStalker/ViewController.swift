@@ -8,9 +8,7 @@
 // urlsession delegate -> RX Proxy
 
 import UIKit
-import RxCocoa
-import RxSwift
-import ReactorKit
+
 
 class ViewController: UIViewController {
     
@@ -23,8 +21,3 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: View {
-    typealias Reactor = <#type#>
-    
-    
-}

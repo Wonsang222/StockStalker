@@ -14,13 +14,13 @@
 		7E17518F2D3617610097FE4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E17518E2D3617610097FE4A /* Assets.xcassets */; };
 		7E1751922D3617610097FE4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1751902D3617610097FE4A /* LaunchScreen.storyboard */; };
 		7E637A0F2D41CDBA007824A7 /* FirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E637A0E2D41CDBA007824A7 /* FirstViewModel.swift */; };
-		9350B4EEBB1B85C45AD08D0A /* Pods_stockStalker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC317963CA8638CDA3AC2C8 /* Pods_stockStalker.framework */; };
+		7EF3280A2D6D449B0050820B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7EF328092D6D449B0050820B /* RxCocoa */; };
+		7EF3280C2D6D449B0050820B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7EF3280B2D6D449B0050820B /* RxSwift */; };
+		7EF3280F2D6D44B80050820B /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7EF3280E2D6D44B80050820B /* ReactorKit */; };
 		C17A92FB2D6C8DB40036625F /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17A92FA2D6C8DB40036625F /* ChartView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0DC317963CA8638CDA3AC2C8 /* Pods_stockStalker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_stockStalker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		2A407704B5BCAF8E0C80EE35 /* Pods-stockStalker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stockStalker.release.xcconfig"; path = "Target Support Files/Pods-stockStalker/Pods-stockStalker.release.xcconfig"; sourceTree = "<group>"; };
 		7E1751822D36175D0097FE4A /* stockStalker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stockStalker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E1751852D36175D0097FE4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E1751872D36175D0097FE4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,7 +30,6 @@
 		7E1751912D3617610097FE4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7E1751932D3617610097FE4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E637A0E2D41CDBA007824A7 /* FirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewModel.swift; sourceTree = "<group>"; };
-		B0B0A6E0FC925EC745E42642 /* Pods-stockStalker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stockStalker.debug.xcconfig"; path = "Target Support Files/Pods-stockStalker/Pods-stockStalker.debug.xcconfig"; sourceTree = "<group>"; };
 		C17A92FA2D6C8DB40036625F /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -39,37 +38,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9350B4EEBB1B85C45AD08D0A /* Pods_stockStalker.framework in Frameworks */,
+				7EF3280C2D6D449B0050820B /* RxSwift in Frameworks */,
+				7EF3280F2D6D44B80050820B /* ReactorKit in Frameworks */,
+				7EF3280A2D6D449B0050820B /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2D9E660D7BAC373F79584C88 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B0B0A6E0FC925EC745E42642 /* Pods-stockStalker.debug.xcconfig */,
-				2A407704B5BCAF8E0C80EE35 /* Pods-stockStalker.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		4FD6989654991A80F22E0A29 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0DC317963CA8638CDA3AC2C8 /* Pods_stockStalker.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		7E1751792D36175D0097FE4A = {
 			isa = PBXGroup;
 			children = (
 				7E1751842D36175D0097FE4A /* stockStalker */,
 				7E1751832D36175D0097FE4A /* Products */,
-				2D9E660D7BAC373F79584C88 /* Pods */,
-				4FD6989654991A80F22E0A29 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,11 +86,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7E1751962D3617610097FE4A /* Build configuration list for PBXNativeTarget "stockStalker" */;
 			buildPhases = (
-				EC8534E3B51134A3BCE8F4CA /* [CP] Check Pods Manifest.lock */,
 				7E17517E2D36175D0097FE4A /* Sources */,
 				7E17517F2D36175D0097FE4A /* Frameworks */,
 				7E1751802D36175D0097FE4A /* Resources */,
-				2C16C8D54D86402EED4A76A5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -143,6 +123,10 @@
 				Base,
 			);
 			mainGroup = 7E1751792D36175D0097FE4A;
+			packageReferences = (
+				7EF328082D6D449B0050820B /* XCRemoteSwiftPackageReference "RxSwift" */,
+				7EF3280D2D6D44B80050820B /* XCRemoteSwiftPackageReference "ReactorKit" */,
+			);
 			productRefGroup = 7E1751832D36175D0097FE4A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -164,48 +148,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		2C16C8D54D86402EED4A76A5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-stockStalker/Pods-stockStalker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-stockStalker/Pods-stockStalker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-stockStalker/Pods-stockStalker-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EC8534E3B51134A3BCE8F4CA /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-stockStalker-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7E17517E2D36175D0097FE4A /* Sources */ = {
@@ -363,7 +305,6 @@
 		};
 		7E1751972D3617610097FE4A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B0B0A6E0FC925EC745E42642 /* Pods-stockStalker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -396,7 +337,6 @@
 		};
 		7E1751982D3617610097FE4A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2A407704B5BCAF8E0C80EE35 /* Pods-stockStalker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -449,6 +389,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7EF328082D6D449B0050820B /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.9.0;
+			};
+		};
+		7EF3280D2D6D44B80050820B /* XCRemoteSwiftPackageReference "ReactorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactorKit/ReactorKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7EF328092D6D449B0050820B /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7EF328082D6D449B0050820B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		7EF3280B2D6D449B0050820B /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7EF328082D6D449B0050820B /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		7EF3280E2D6D44B80050820B /* ReactorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7EF3280D2D6D44B80050820B /* XCRemoteSwiftPackageReference "ReactorKit" */;
+			productName = ReactorKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7E17517A2D36175D0097FE4A /* Project object */;
 }
