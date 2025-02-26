@@ -8,16 +8,15 @@
 // urlsession delegate -> RX Proxy
 
 import UIKit
-
+import RxSwift
 
 class ViewController: UIViewController {
     
+    let bag: DisposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
-
-
 }
 
