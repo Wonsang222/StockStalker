@@ -25,10 +25,15 @@ enum NetworkError: Error {
 enum HttpMethod: String {
     case get = "GET"
 }
-
 protocol BodyEncoder {
     func encode<T: Encodable>(_ param: T) -> Data?
 }
+
+protocol ResponseDecoder {
+    func decode<T: Decodable>(_ data: Data) throws -> T
+}
+
+
 
 protocol Requestable {
     var path: String? { get }
@@ -82,5 +87,39 @@ extension Requestable {
         return req
     }
     
-    
+    func urlSessionConfiguration(_ config: NetworkConfigurable) -> URLSessionConfiguration {
+        var base = URLSessionConfiguration.default
+        base.httpAdditionalHeaders = config.header
+        return base
+    }
 }
+
+final class EndPoint<T>: Requestable {
+    typealias Response = T
+    let path: String?
+    let method: HttpMethod
+    let queryParameter: [String : String]
+    let header: [String : String]
+    let body: (any Encodable)?
+    let bodyEncoder: (any BodyEncoder)?
+    let responseDecoder: ResponseDecoder
+    
+    init(
+        path: String?,
+        method: HttpMethod,
+        queryParameter: [String : String],
+        header: [String : String],
+        body: (any Encodable)? = nil,
+        bodyEncoder: (any BodyEncoder)? = nil,
+        responseDecoder: ResponseDecoder)
+    {
+        self.path = path
+        self.method = method
+        self.queryParameter = queryParameter
+        self.header = header
+        self.body = body
+        self.bodyEncoder = bodyEncoder
+        self.responseDecoder = responseDecoder
+    }
+}
+
