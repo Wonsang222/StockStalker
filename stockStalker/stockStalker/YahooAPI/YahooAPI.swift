@@ -30,10 +30,16 @@ protocol BodyEncoder {
 }
 
 protocol ResponseDecoder {
-    func decode<T: Decodable>(_ data: Data) throws -> T
+    func decode<T: Codable>(_ data: Data) throws -> T
 }
 
-
+final class EntitiyTypeResponseDecoder: ResponseDecoder {
+    let decoder = JSONDecoder()
+    
+    func decode<T>(_ data: Data) throws -> T where T : Codable {
+        return try decoder.decode(T.self, from: data)
+    }
+}
 
 protocol Requestable {
     var path: String? { get }
@@ -72,7 +78,7 @@ extension Requestable {
         return finalUrl
     }
     
-    func urlRequest(_ config: NetworkConfig) throws -> URLRequest {
+    func urlRequest(_ config: NetworkConfigurable) throws -> URLRequest {
         let url = try url(config)
         var req = URLRequest(url: url)
         req.httpMethod = method.rawValue
@@ -123,3 +129,39 @@ final class EndPoint<T>: Requestable {
     }
 }
 
+protocol AsyncNetworkService {
+    func fetchAPI(endpoint: Requestable) async throws -> Result<Data, Error>
+}
+
+protocol AsyncSessionManager {
+    func request(req: URLRequest, config: URLSessionConfiguration) async throws -> (Data, URLResponse)
+}
+
+final class DefaultAsyncSessionManager: AsyncSessionManager {
+    func request(req: URLRequest, config: URLSessionConfiguration) async throws -> (Data, URLResponse) {
+        return try await URLSession(configuration: config).data(for: req)
+    }
+}
+
+final class DefaultAsyncNetworkService {
+    
+    private let _session: AsyncSessionManager
+    private let _configuration: NetworkConfigurable
+    
+    init(_session: AsyncSessionManager, _configuration: NetworkConfigurable) {
+        self._session = _session
+        self._configuration = _configuration
+    }
+    
+    private func getRequest(_ endpoint: Requestable) throws -> URLRequest  {
+        return try endpoint.urlRequest(_configuration)
+    }
+}
+
+extension DefaultAsyncNetworkService: AsyncNetworkService {
+    func fetchAPI(endpoint: any Requestable) async throws -> Result<Data, Error> {
+       let result = await Task {
+           let (data, response) =  try await _session.request(req: getRequest(endpoint), config: endpoint.urlSessionConfiguration(_configuration))
+       }.result
+    }
+}
