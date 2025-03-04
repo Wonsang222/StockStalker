@@ -199,7 +199,7 @@ extension DefaultAsyncNetworkService: AsyncNetworkService {
 }
 
 protocol AsyncDataTransferService {
-    func request<T: ResponseRequestable>(_ endpoint: T) async throws -> T.Response where T.Response: Decodable
+    func request<T: ResponseRequestable, F: Decodable>(_ endpoint: T) async throws -> F where T.Response == F
 }
 
 final class AsyncDataTransferServiceImplementaion {
@@ -221,9 +221,9 @@ final class AsyncDataTransferServiceImplementaion {
 }
 
 extension AsyncDataTransferServiceImplementaion: AsyncDataTransferService {
-    func request<T>(_ endpoint: T) async throws -> T.Response where T : ResponseRequestable, T.Response : Decodable {
+    func request<T, F>(_ endpoint: T) async throws -> F where T : ResponseRequestable, F == T.Response, F: Decodable {
         let data = try await _networkService.fetchAPI(endpoint: endpoint)
-        let dto: T.Response = try convertToResult(with: endpoint.responseDecoder, data: data)
+        let dto: F = try convertToResult(with: endpoint.responseDecoder, data: data)
         return dto
     }
 }
