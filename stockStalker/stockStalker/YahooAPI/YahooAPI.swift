@@ -20,6 +20,7 @@ struct NetworkConfig: NetworkConfigurable {
 enum NetworkError: Error {
     case urlComponent
     case url
+    case wrongResponse
 }
 
 enum HttpMethod: String {
@@ -30,13 +31,13 @@ protocol BodyEncoder {
 }
 
 protocol ResponseDecoder {
-    func decode<T: Codable>(_ data: Data) throws -> T
+    func decode<T: Decodable>(_ data: Data) throws -> T
 }
 
 final class EntitiyTypeResponseDecoder: ResponseDecoder {
     let decoder = JSONDecoder()
     
-    func decode<T>(_ data: Data) throws -> T where T : Codable {
+    func decode<T>(_ data: Data) throws -> T where T : Decodable {
         return try decoder.decode(T.self, from: data)
     }
 }
@@ -100,7 +101,14 @@ extension Requestable {
     }
 }
 
-final class EndPoint<T>: Requestable {
+protocol ResponseRequestable: Requestable {
+    
+    associatedtype Response
+    
+    var responseDecoder: ResponseDecoder { get }
+}
+
+final class EndPoint<T>: ResponseRequestable {
     typealias Response = T
     let path: String?
     let method: HttpMethod
@@ -130,7 +138,7 @@ final class EndPoint<T>: Requestable {
 }
 
 protocol AsyncNetworkService {
-    func fetchAPI(endpoint: Requestable) async throws -> Result<Data, Error>
+    func fetchAPI(endpoint: Requestable) async -> Result<Data, any Error>
 }
 
 protocol AsyncSessionManager {
@@ -156,12 +164,66 @@ final class DefaultAsyncNetworkService {
     private func getRequest(_ endpoint: Requestable) throws -> URLRequest  {
         return try endpoint.urlRequest(_configuration)
     }
+    
+    private func handleHttpResponse(_ reponse: URLResponse) throws {
+        guard let response = reponse as? HTTPURLResponse else {
+            throw NetworkError.wrongResponse
+        }
+        
+        if !(200...299).contains(response.statusCode) {
+            throw NetworkError.wrongResponse
+        }
+    }
 }
 
 extension DefaultAsyncNetworkService: AsyncNetworkService {
-    func fetchAPI(endpoint: any Requestable) async throws -> Result<Data, Error> {
-       let result = await Task {
-           let (data, response) =  try await _session.request(req: getRequest(endpoint), config: endpoint.urlSessionConfiguration(_configuration))
-       }.result
+    func fetchAPI(endpoint: any Requestable) async -> Result<Data, any Error> {
+        return await Task {
+            
+            do {
+                let (data, response) = try await _session.request(req: endpoint.urlRequest(_configuration), config: endpoint.urlSessionConfiguration(_configuration))
+                try handleHttpResponse(response)
+                return data
+            } catch {
+                throw NetworkError.wrongResponse
+            }
+        }.result
     }
 }
+
+enum DataTransferError: Error {
+    case convert
+}
+
+protocol AsyncDataTransferService {
+    func request<T: ResponseRequestable>(_ endpoint: T) async throws -> Result<T.Response, any Error>
+}
+
+final class AsyncDataTransferServiceImplementaion {
+    
+    let _networkService: AsyncNetworkService
+    
+    init(_networkService: AsyncNetworkService) {
+        self._networkService = _networkService
+    }
+    
+    private func convertToResult<T: Decodable>(with decoder: ResponseDecoder, data: Data) -> Result<T, any Error> {
+        do {
+            let successData: T = try decoder.decode(data)
+            return .success(successData)
+        } catch {
+            return .failure(DataTransferError.convert)
+        }
+    }
+}
+
+extension AsyncDataTransferServiceImplementaion: AsyncDataTransferService {
+    func request<T>(_ endpoint: T) async throws -> Result<T.Response, any Error> where T : ResponseRequestable {
+        return await Task {
+            let data = try await _networkService.fetchAPI(endpoint: endpoint)
+        }.result
+        
+    }
+}
+
+
