@@ -7,7 +7,10 @@
 
 import UIKit
 
-class ChartView: UIView {
+final class ChartView: UIView {
+    
+    private let _beizierPath = UIBezierPath()
+    
     
     override func draw(_ rect: CGRect) {
         

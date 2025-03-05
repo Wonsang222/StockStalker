@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol NetworkConfigurable {
     var baseURL: String { get }
@@ -228,4 +229,30 @@ extension AsyncDataTransferServiceImplementaion: AsyncDataTransferService {
     }
 }
 
+protocol RxDataTransferWrapperType {
+    func request<T: ResponseRequestable, F: Decodable>(_ endpoint: T) -> Single<F> where F == T.Response
+}
 
+final class RxDataTransferWrapper: RxDataTransferWrapperType {
+    let _asyncDataTransferService: AsyncDataTransferService
+    
+    init(_asyncDataTransferService: AsyncDataTransferService) {
+        self._asyncDataTransferService = _asyncDataTransferService
+    }
+    
+    func request<T, F>(_ endpoint: T) -> Single<F> where T : ResponseRequestable, F : Decodable, F == T.Response {
+        return Single.create { single in
+            let task =  Task {
+                do {
+                    let data = try await self._asyncDataTransferService.request(endpoint)
+                    single(.success(data))
+                } catch let error {
+                    single(.failure(error))
+                    }
+                }
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+}
