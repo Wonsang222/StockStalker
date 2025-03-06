@@ -37,6 +37,8 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7E3FB8F32D6FF6EB00CD0B79 /* YahooAPI */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = YahooAPI; sourceTree = "<group>"; };
+		7E499EFA2D7923140066AF6F /* Extensions */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Extensions; sourceTree = "<group>"; };
+		7E499F132D792E260066AF6F /* Common */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Common; sourceTree = "<group>"; };
 		7EF8D5CB2D77D7B10029609F /* VM */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VM; sourceTree = "<group>"; };
 		7EF8D5D02D77D86E0029609F /* VIEWS */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VIEWS; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -74,6 +76,8 @@
 		7E1751842D36175D0097FE4A /* stockStalker */ = {
 			isa = PBXGroup;
 			children = (
+				7E499F132D792E260066AF6F /* Common */,
+				7E499EFA2D7923140066AF6F /* Extensions */,
 				7EF8D5D02D77D86E0029609F /* VIEWS */,
 				7EF8D5CB2D77D7B10029609F /* VM */,
 				7E3FB8F32D6FF6EB00CD0B79 /* YahooAPI */,
@@ -108,6 +112,8 @@
 			);
 			fileSystemSynchronizedGroups = (
 				7E3FB8F32D6FF6EB00CD0B79 /* YahooAPI */,
+				7E499EFA2D7923140066AF6F /* Extensions */,
+				7E499F132D792E260066AF6F /* Common */,
 				7EF8D5CB2D77D7B10029609F /* VM */,
 				7EF8D5D02D77D86E0029609F /* VIEWS */,
 			);

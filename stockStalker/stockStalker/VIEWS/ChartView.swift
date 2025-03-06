@@ -46,7 +46,7 @@ final class ChartView: UIView {
         let width = rect.size.width
         let height = rect.size.height
         let taggedLayer = TaggedLayer(tag: tag)
-        let x = (width / _rates.count.makeCGFloat)
+        let x = width / _rates.count.makeCGFloat
         
         // y 고점 저점 -> 비율계산
         var positionY = [CGFloat]()
