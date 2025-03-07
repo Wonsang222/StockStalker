@@ -24,6 +24,7 @@ enum NetworkError: Error {
     case wrongResponse
     case dataParse
     case cancellation
+    case api
 }
 
 enum HttpMethod: String {

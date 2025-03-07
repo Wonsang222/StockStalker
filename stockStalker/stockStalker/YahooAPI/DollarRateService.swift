@@ -9,7 +9,7 @@ import Foundation
 
 // 1년  https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=1y&interval=1d
 // 3년  https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=3y&interval=1wk
-// 5년  https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=5y&interval=1mo
+// 5년  https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=5y&interval=1wk
 
 enum Countries: String {
     case krw = "KRW=X"

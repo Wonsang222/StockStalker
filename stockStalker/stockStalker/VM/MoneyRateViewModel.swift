@@ -22,8 +22,11 @@ final class MoneyRateViewModel: Reactor {
         case setAlertMessage(ErrorHandler)
     }
     
+    //
     struct State {
         @Pulse var rates: [Double] = []
+        @Pulse var error: (any Error)?
+        @Pulse var isLoading: Bool = false
     }
     
     let initialState: State = State()
