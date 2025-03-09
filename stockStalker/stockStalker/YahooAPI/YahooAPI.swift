@@ -2,7 +2,7 @@
 //  YahooAPI.swift
 //  stockStalker
 //
-//  Created by WISA Mobile on 2/27/25.
+//  Created by Wonsang HWang on 2/27/25.
 //
 
 import Foundation
@@ -99,7 +99,7 @@ extension Requestable {
     }
     
     func urlSessionConfiguration(_ config: NetworkConfigurable) -> URLSessionConfiguration {
-        var base = URLSessionConfiguration.default
+        let base = URLSessionConfiguration.default
         base.httpAdditionalHeaders = config.header
         return base
     }
@@ -192,7 +192,7 @@ extension DefaultAsyncNetworkService: AsyncNetworkService {
                 try handleHttpResponse(response)
                 return data
             } catch let error {
-                if let cancellation = error as? CancellationError {
+                if let _ = error as? CancellationError {
                     throw NetworkError.cancellation
                 }
                 throw NetworkError.wrongResponse

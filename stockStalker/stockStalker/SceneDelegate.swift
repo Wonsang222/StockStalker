@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  stockStalker
 //
-//  Created by WISA Mobile on 1/14/25.
+//  Created by Wonsang HWang on 1/14/25.
 //
 
 import UIKit

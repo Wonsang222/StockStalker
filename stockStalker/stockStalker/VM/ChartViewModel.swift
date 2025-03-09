@@ -2,16 +2,33 @@
 //  ChartViewModel.swift
 //  stockStalker
 //
-//  Created by WISA Mobile on 3/7/25.
+//  Created by Wonsang HWang on 3/7/25.
 //
 
 import Foundation
 
-struct ChartModel {
-    let dates: Date
-    let rates: Double
+struct ChartEntities {
+    let chart: [ChartEntity]
+    
+    init(
+        chart: [ChartEntity],
+        errorMsg: String?
+    ) throws {
+        if errorMsg != nil {
+            throw NetworkError.dataParse
+        }
+        self.chart = chart
+    }
 }
 
-struct ChartViewModel {
-    let charts:[ChartModel]
+struct ChartEntity {
+    let timestamp: Int
+    let rate: Double
+    
+    init?(timestamp: Int?, rate: Double?) {
+    guard let safeStamp = timestamp, let safeRate = rate
+        else { return nil }
+        self.timestamp = safeStamp
+        self.rate = safeRate
+    }
 }

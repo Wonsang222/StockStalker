@@ -13,13 +13,21 @@
 		7E17518D2D36175D0097FE4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E17518B2D36175D0097FE4A /* Main.storyboard */; };
 		7E17518F2D3617610097FE4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E17518E2D3617610097FE4A /* Assets.xcassets */; };
 		7E1751922D3617610097FE4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1751902D3617610097FE4A /* LaunchScreen.storyboard */; };
-		7E41E21F2D6E9D1A004DEA32 /* CurrentInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E41E21E2D6E9D1A004DEA32 /* CurrentInfoView.swift */; };
-		7E41E2212D6E9D38004DEA32 /* CurrentInfoVIew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E41E2202D6E9D38004DEA32 /* CurrentInfoVIew.xib */; };
 		7E637A0F2D41CDBA007824A7 /* FirstViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E637A0E2D41CDBA007824A7 /* FirstViewModel.swift */; };
 		7EF3280A2D6D449B0050820B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7EF328092D6D449B0050820B /* RxCocoa */; };
 		7EF3280C2D6D449B0050820B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7EF3280B2D6D449B0050820B /* RxSwift */; };
 		7EF3280F2D6D44B80050820B /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7EF3280E2D6D44B80050820B /* ReactorKit */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C15303022D7B470000CE9459 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E17517A2D36175D0097FE4A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7E1751812D36175D0097FE4A;
+			remoteInfo = stockStalker;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		7E1751822D36175D0097FE4A /* stockStalker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stockStalker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,9 +38,8 @@
 		7E17518E2D3617610097FE4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E1751912D3617610097FE4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7E1751932D3617610097FE4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7E41E21E2D6E9D1A004DEA32 /* CurrentInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentInfoView.swift; sourceTree = "<group>"; };
-		7E41E2202D6E9D38004DEA32 /* CurrentInfoVIew.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrentInfoVIew.xib; sourceTree = "<group>"; };
 		7E637A0E2D41CDBA007824A7 /* FirstViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewModel.swift; sourceTree = "<group>"; };
+		C15302FE2D7B470000CE9459 /* stockStalkerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = stockStalkerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -41,6 +48,7 @@
 		7E499F132D792E260066AF6F /* Common */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Common; sourceTree = "<group>"; };
 		7EF8D5CB2D77D7B10029609F /* VM */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VM; sourceTree = "<group>"; };
 		7EF8D5D02D77D86E0029609F /* VIEWS */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VIEWS; sourceTree = "<group>"; };
+		C15302FF2D7B470000CE9459 /* stockStalkerTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = stockStalkerTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +62,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C15302FB2D7B470000CE9459 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -61,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				7E1751842D36175D0097FE4A /* stockStalker */,
+				C15302FF2D7B470000CE9459 /* stockStalkerTests */,
 				7E1751832D36175D0097FE4A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -69,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				7E1751822D36175D0097FE4A /* stockStalker.app */,
+				C15302FE2D7B470000CE9459 /* stockStalkerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,8 +101,6 @@
 				7E1751852D36175D0097FE4A /* AppDelegate.swift */,
 				7E1751872D36175D0097FE4A /* SceneDelegate.swift */,
 				7E1751892D36175D0097FE4A /* ViewController.swift */,
-				7E41E21E2D6E9D1A004DEA32 /* CurrentInfoView.swift */,
-				7E41E2202D6E9D38004DEA32 /* CurrentInfoVIew.xib */,
 				7E17518B2D36175D0097FE4A /* Main.storyboard */,
 				7E17518E2D3617610097FE4A /* Assets.xcassets */,
 				7E1751902D3617610097FE4A /* LaunchScreen.storyboard */,
@@ -122,6 +137,29 @@
 			productReference = 7E1751822D36175D0097FE4A /* stockStalker.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C15302FD2D7B470000CE9459 /* stockStalkerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C15303062D7B470000CE9459 /* Build configuration list for PBXNativeTarget "stockStalkerTests" */;
+			buildPhases = (
+				C15302FA2D7B470000CE9459 /* Sources */,
+				C15302FB2D7B470000CE9459 /* Frameworks */,
+				C15302FC2D7B470000CE9459 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C15303032D7B470000CE9459 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				C15302FF2D7B470000CE9459 /* stockStalkerTests */,
+			);
+			name = stockStalkerTests;
+			packageProductDependencies = (
+			);
+			productName = stockStalkerTests;
+			productReference = C15302FE2D7B470000CE9459 /* stockStalkerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -129,11 +167,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					7E1751812D36175D0097FE4A = {
 						CreatedOnToolsVersion = 15.0.1;
+					};
+					C15302FD2D7B470000CE9459 = {
+						CreatedOnToolsVersion = 16.1;
+						TestTargetID = 7E1751812D36175D0097FE4A;
 					};
 				};
 			};
@@ -155,6 +197,7 @@
 			projectRoot = "";
 			targets = (
 				7E1751812D36175D0097FE4A /* stockStalker */,
+				C15302FD2D7B470000CE9459 /* stockStalkerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -166,8 +209,14 @@
 			files = (
 				7E1751922D3617610097FE4A /* LaunchScreen.storyboard in Resources */,
 				7E17518F2D3617610097FE4A /* Assets.xcassets in Resources */,
-				7E41E2212D6E9D38004DEA32 /* CurrentInfoVIew.xib in Resources */,
 				7E17518D2D36175D0097FE4A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15302FC2D7B470000CE9459 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,11 +231,25 @@
 				7E1751862D36175D0097FE4A /* AppDelegate.swift in Sources */,
 				7E1751882D36175D0097FE4A /* SceneDelegate.swift in Sources */,
 				7E637A0F2D41CDBA007824A7 /* FirstViewModel.swift in Sources */,
-				7E41E21F2D6E9D1A004DEA32 /* CurrentInfoView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C15302FA2D7B470000CE9459 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C15303032D7B470000CE9459 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7E1751812D36175D0097FE4A /* stockStalker */;
+			targetProxy = C15303022D7B470000CE9459 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7E17518B2D36175D0097FE4A /* Main.storyboard */ = {
@@ -334,6 +397,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZD5K45Y4NW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = stockStalker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -366,6 +430,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZD5K45Y4NW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = stockStalker/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -391,6 +456,44 @@
 			};
 			name = Release;
 		};
+		C15303042D7B470000CE9459 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZD5K45Y4NW;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = wonsangHwnag.stockStalkerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/stockStalker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/stockStalker";
+			};
+			name = Debug;
+		};
+		C15303052D7B470000CE9459 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZD5K45Y4NW;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = wonsangHwnag.stockStalkerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/stockStalker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/stockStalker";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -408,6 +511,15 @@
 			buildConfigurations = (
 				7E1751972D3617610097FE4A /* Debug */,
 				7E1751982D3617610097FE4A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C15303062D7B470000CE9459 /* Build configuration list for PBXNativeTarget "stockStalkerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C15303042D7B470000CE9459 /* Debug */,
+				C15303052D7B470000CE9459 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

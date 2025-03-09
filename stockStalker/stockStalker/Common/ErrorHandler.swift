@@ -2,7 +2,7 @@
 //  ErrorHandler.swift
 //  stockStalker
 //
-//  Created by WISA Mobile on 3/6/25.
+//  Created by Wonsang HWang on 3/6/25.
 //
 
 import Foundation

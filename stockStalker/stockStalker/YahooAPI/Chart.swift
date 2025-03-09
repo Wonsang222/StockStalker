@@ -2,7 +2,7 @@
 //  Chart.swift
 //  stockStalker
 //
-//  Created by WISA Mobile on 3/5/25.
+//  Created by Wonsang HWang on 3/5/25.
 //
 
 import Foundation
@@ -19,7 +19,7 @@ extension ChartResponseDTO {
     }
     
     struct ChartResultDTO: Decodable {
-        let timestamp: [Int]?
+        let timestamp: [Int?]?
         let indicators: IndicatorsDTO
     }
 
@@ -28,34 +28,30 @@ extension ChartResponseDTO {
     }
 
     struct QuoteDTO: Decodable {
-        let close: [Double?]
+        let close: [Double?]?
+    }
+}
+
+extension ChartResponseDTO.ChartResultDTO {
+    func toDomain() throws -> [ChartEntity] {
+        
+        guard let timestamp = timestamp, let quoteRates = indicators.quote[0].close
+        else {
+            throw NetworkError.dataParse
+        }
+        var charEntities = [ChartEntity?]()
+        zip(timestamp, quoteRates).forEach{ charEntities.append(ChartEntity(timestamp: $0, rate: $1))  }
+        return charEntities.compactMap{ $0 }
     }
 }
 
 extension ChartResponseDTO {
-    func getErrorString() -> String? {
-        return chart.error
-    }
-    
-    var getDates: [Int]? {
-        return chart.result.
-    }
-}
-
-extension ChartResponseDTO.ChartDTO {
-    
-}
-
-extension ChartResponseDTO.ChartResultDTO {
-    var getDates: [Int]? {
-        return timestamp
+    func toDomain() throws -> ChartEntities {
+        guard let results = chart.result?[0] else {
+            throw NetworkError.api
+        }
+        let data = try results.toDomain()
+        return try ChartEntities(chart: data, errorMsg: chart.error)
     }
 }
 
-extension ChartResponseDTO.IndicatorsDTO {
-    
-}
-
-extension ChartResponseDTO.QuoteDTO {
-    
-}

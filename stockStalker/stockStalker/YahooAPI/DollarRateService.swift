@@ -2,7 +2,7 @@
 //  DollarRateService.swift
 //  stockStalker
 //
-//  Created by WISA Mobile on 2/26/25.
+//  Created by Wonsang HWang on 2/26/25.
 //
 
 import Foundation
