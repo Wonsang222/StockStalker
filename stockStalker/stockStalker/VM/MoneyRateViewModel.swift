@@ -42,6 +42,7 @@ final class MoneyRateViewModel: Reactor {
                 _networkService.request(convertToEndpoint(with: yahooService))
                     .map{ try Mutation.fetchFinancialInfo($0.toDomain()) }
                     .asObservable()
+                    .take(until: self.action.filter(Action.isNewFetching))
                     .catch(self.createErrorHandler)
                 ,Observable.just(.setLoading(false))
             ])
@@ -80,5 +81,14 @@ extension MoneyRateViewModel {
             }
         }
         return Observable.empty()
+    }
+}
+
+extension MoneyRateViewModel.Action {
+    static func isNewFetching(with action: MoneyRateViewModel.Action) -> Bool {
+        if case .tapBtn(let yahooServices) = action {
+            return true
+        }
+        return false
     }
 }
