@@ -8,6 +8,9 @@
 import Foundation
 import RxSwift
 
+// cache policy  -> config or request or both?  == request looks more flexible
+//
+
 protocol NetworkConfigurable {
     var baseURL: String { get }
     var header: [String:String] { get }
@@ -50,6 +53,7 @@ protocol Requestable {
     var path: String? { get }
     var method: HttpMethod { get }
     var queryParameter: [String:String] { get }
+    var queryEncodable: Encodable? { get }
     var header: [String:String] { get }
     var body: Encodable? { get }
     var bodyEncoder: BodyEncoder? { get }
@@ -74,6 +78,11 @@ extension Requestable {
         var queryComponents = [URLQueryItem]()
         
         queryParameter.forEach{ queryComponents.append(URLQueryItem(name: $0.key, value: $0.value)) }
+        
+        if let queryEncodable = queryEncodable,
+           let queries = try queryEncodable.toDic() {
+            queries.forEach{ queryComponents.append(URLQueryItem(name: $0.key, value: $0.value)) }
+        }
         
         components.queryItems = queryComponents
         
@@ -117,6 +126,7 @@ final class EndPoint<T>: ResponseRequestable {
     let path: String?
     let method: HttpMethod
     let queryParameter: [String : String]
+    let queryEncodable: (any Encodable)?
     let header: [String : String]
     let body: (any Encodable)?
     let bodyEncoder: (any BodyEncoder)?
@@ -125,7 +135,8 @@ final class EndPoint<T>: ResponseRequestable {
     init(
         path: String?,
         method: HttpMethod,
-        queryParameter: [String : String],
+        queryParameter: [String : String] = [:],
+        queryEncodable: Encodable?,
         header: [String : String],
         body: (any Encodable)? = nil,
         bodyEncoder: (any BodyEncoder)? = nil,
@@ -134,13 +145,13 @@ final class EndPoint<T>: ResponseRequestable {
         self.path = path
         self.method = method
         self.queryParameter = queryParameter
+        self.queryEncodable = queryEncodable
         self.header = header
         self.body = body
         self.bodyEncoder = bodyEncoder
         self.responseDecoder = responseDecoder
     }
 }
-
 
 protocol AsyncNetworkService {
     func fetchAPI(endpoint: Requestable) async throws -> Data
@@ -206,13 +217,13 @@ protocol AsyncDataTransferService {
 
 final class AsyncDataTransferServiceImplementaion {
     
-    let _networkService: AsyncNetworkService
+    private let _networkService: AsyncNetworkService
     
     init(_networkService: AsyncNetworkService) {
         self._networkService = _networkService
     }
     
-    private func convertToResult<T: Decodable>(with decoder: ResponseDecoder, data: Data) throws -> T {
+    private func convertToEntitity<T: Decodable>(with decoder: ResponseDecoder, data: Data) throws -> T {
         do {
             let successData: T = try decoder.decode(data)
             return successData
@@ -225,7 +236,7 @@ final class AsyncDataTransferServiceImplementaion {
 extension AsyncDataTransferServiceImplementaion: AsyncDataTransferService {
     func request<T, F>(_ endpoint: T) async throws -> F where T : ResponseRequestable, F == T.Response, F: Decodable {
         let data = try await _networkService.fetchAPI(endpoint: endpoint)
-        let dto: F = try convertToResult(with: endpoint.responseDecoder, data: data)
+        let dto: F = try convertToEntitity(with: endpoint.responseDecoder, data: data)
         return dto
     }
 }
@@ -255,5 +266,13 @@ final class RxDataTransferWrapper: RxDataTransferWrapperType {
                 task.cancel()
             }
         }
+    }
+}
+
+fileprivate extension Encodable {
+    func toDic() throws -> [String : String]? {
+        let data = try JSONEncoder().encode(self)
+        let json = try JSONSerialization.jsonObject(with: data)
+        return json as? [String :  String]
     }
 }

@@ -23,9 +23,9 @@ class YahooResponseTest: XCTestCase {
         response = nil
     }
     
-    func testParsing_WhenDecoding_NoErrorReturned() {
+    func testParsing_WhenDecoded_NoErrorReturned() {
         do {
-            let a: ChartResponseDTO = try sut.decode(response)
+            let _: ChartResponseDTO = try sut.decode(response)
         } catch {
             XCTFail()
         }

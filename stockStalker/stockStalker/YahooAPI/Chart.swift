@@ -39,8 +39,9 @@ extension ChartResponseDTO.ChartResultDTO {
         else {
             throw NetworkError.dataParse
         }
+
         var charEntities = [ChartEntity?]()
-        zip(timestamp, quoteRates).forEach{ charEntities.append(ChartEntity(timestamp: $0, rate: $1))  }
+        zip(timestamp, quoteRates).forEach{ charEntities.append(ChartEntity(timestamp: $0, rate: $1)) }
         return charEntities.compactMap{ $0 }
     }
 }
@@ -50,8 +51,8 @@ extension ChartResponseDTO {
         guard let results = chart.result?[0] else {
             throw NetworkError.api
         }
+        
         let data = try results.toDomain()
         return try ChartEntities(chart: data, errorMsg: chart.error)
     }
 }
-
