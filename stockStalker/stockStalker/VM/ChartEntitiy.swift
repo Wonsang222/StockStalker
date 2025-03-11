@@ -23,12 +23,12 @@ struct ChartEntities {
 
 struct ChartEntity {
     let timestamp: Int
-    let rate: Double
+    let rate: Int
     
     init?(timestamp: Int?, rate: Double?) {
     guard let safeStamp = timestamp, let safeRate = rate
         else { return nil }
         self.timestamp = safeStamp
-        self.rate = safeRate
+        self.rate = Int(safeRate)
     }
 }

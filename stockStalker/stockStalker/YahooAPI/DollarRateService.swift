@@ -16,78 +16,78 @@ import Foundation
 // 3년  https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=3y&interval=1wk
 // 5년  https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=5y&interval=1wk
 
-enum Countries: String {
-    case krw = "KRW=X"
-}
-
-enum Interval: String {
-    case hour = "h"
-    case min = "m"
-    case day = "d"
-    case week = "wk"
-    case month = "mo"
-    case year = "y"
+enum YahooAPI {
+    static let baseURL: String = "https://query1.finance.yahoo.com/v8/finance/chart/"
     
-    func createPeriod(_ period: Int) -> String {
-        return "\(period)" + self.rawValue
+    enum Interval: String {
+        case hour = "h"
+        case min = "m"
+        case day = "d"
+        case week = "wk"
+        case month = "mo"
+        case year = "y"
+        
+        func createPeriod(_ period: Int) -> String {
+            return "\(period)" + self.rawValue
+        }
+    }
+    
+    enum Countries: String {
+        case krw = "KRW=X"
     }
 }
 
-enum YahooAPI {
-    static let baseURL: String = "https://query1.finance.yahoo.com/v8/finance/chart/"
-}
-
-enum YahooServices {
-    case oneDay
-    case aWeek
-    case aMonth
-    case threeMonths
-    case sixMonths
-    case aYear
-    case threeYears
-    case fiveYesars
+enum YahooServices: String, CaseIterable {
+    case oneDay = "1일"
+    case aWeek = "1주"
+    case aMonth = "1달"
+    case threeMonths = "3달"
+    case sixMonths = "6달"
+    case aYear = "1년"
+    case threeYears = "3년"
+    case fiveYesars = "5년"
 }
 
 extension YahooServices {
     var getRange: String {
         switch self {
         case .oneDay:
-            return Interval.day.createPeriod(1)
+            return YahooAPI.Interval.day.createPeriod(1)
         case .aWeek:
-            return Interval.week.createPeriod(1)
+            return YahooAPI.Interval.week.createPeriod(1)
         case .aMonth:
-            return Interval.month.createPeriod(1)
+            return YahooAPI.Interval.month.createPeriod(1)
         case .threeMonths:
-            return Interval.month.createPeriod(3)
+            return YahooAPI.Interval.month.createPeriod(3)
         case .sixMonths:
-            return Interval.month.createPeriod(6)
+            return YahooAPI.Interval.month.createPeriod(6)
         case .aYear:
-            return Interval.year.createPeriod(1)
+            return YahooAPI.Interval.year.createPeriod(1)
         case .threeYears:
-            return Interval.year.createPeriod(3)
+            return YahooAPI.Interval.year.createPeriod(3)
         case .fiveYesars:
-            return Interval.year.createPeriod(5)
+            return YahooAPI.Interval.year.createPeriod(5)
         }
     }
     
     var getInterval: String {
         switch self {
         case .oneDay:
-            return Interval.hour.createPeriod(1)
+            return YahooAPI.Interval.hour.createPeriod(1)
         case .aWeek:
-            return Interval.day.createPeriod(1)
+            return YahooAPI.Interval.day.createPeriod(1)
         case .aMonth:
-            return Interval.hour.createPeriod(1)
+            return YahooAPI.Interval.hour.createPeriod(1)
         case .threeMonths:
-            return Interval.hour.createPeriod(1)
+            return YahooAPI.Interval.hour.createPeriod(1)
         case .sixMonths:
-            return Interval.hour.createPeriod(1)
+            return YahooAPI.Interval.hour.createPeriod(1)
         case .aYear:
-            return Interval.hour.createPeriod(1)
+            return YahooAPI.Interval.hour.createPeriod(1)
         case .threeYears:
-            return Interval.week.createPeriod(1)
+            return YahooAPI.Interval.week.createPeriod(1)
         case .fiveYesars:
-            return Interval.week.createPeriod(1)
+            return YahooAPI.Interval.week.createPeriod(1)
         }
     }
 }
