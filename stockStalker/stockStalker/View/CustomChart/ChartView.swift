@@ -10,14 +10,23 @@ import UIKit
 final class ChartView: UIView {
     
     private let _beizierPath = UIBezierPath()
+    
+    private var chartInfo: ChartEntities? {
+        didSet {
+            guard let _entities = chartInfo else { return }
+            var rates = [CGFloat]()
+            
+            for chartInfo in _entities.chart {
+                rates.append(chartInfo.rate.makeCGFloat)
+            }
+            _rates = rates
+        }
+    }
+    
     private var _rates = [CGFloat]() {
         didSet {
             setNeedsDisplay()
         }
-    }
-    
-    public func setRates(_ rates: [CGFloat]) {
-        self._rates = rates
     }
     
     override init(frame: CGRect) {
@@ -26,6 +35,10 @@ final class ChartView: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    public func setEntities(_ entities: ChartEntities?) {
+        self.chartInfo = entities
     }
     
     private func removeExistingLayer(tagNum: Int) {
@@ -39,7 +52,7 @@ final class ChartView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        guard _rates.count != 0 else { return }
+        guard !_rates.isEmpty else { return }
         let tag  = 100
         removeExistingLayer(tagNum: tag)
         

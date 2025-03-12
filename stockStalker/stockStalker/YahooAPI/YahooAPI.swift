@@ -9,7 +9,6 @@ import Foundation
 import RxSwift
 
 // cache policy  -> config or request or both?  == request looks more flexible
-//
 
 protocol NetworkConfigurable {
     var baseURL: String { get }

@@ -9,6 +9,19 @@ import Foundation
 @testable import stockStalker
 
 struct YahooResponse {
+    
+    static func getMockEndpoint(requestDTO: YahooRequestDTO) -> EndPoint<ChartResponseDTO> {
+        return EndPoint(path: requestDTO.country,
+                        method: .get,
+                        queryEncodable: requestDTO,
+                        header: ["UserAgent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"],
+                        responseDecoder: EntitiyTypeResponseDecoder())
+    }
+    
+    static func getURL() -> String {
+        return "https://query1.finance.yahoo.com/v8/finance/chart/"
+    }
+    
     static func getData() -> Data {
         return """
 {

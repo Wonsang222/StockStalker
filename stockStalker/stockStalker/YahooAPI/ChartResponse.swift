@@ -17,12 +17,18 @@ extension ChartResponseDTO {
         let result: [ChartResultDTO]?
         let error: String?
     }
-    
+
     struct ChartResultDTO: Decodable {
         let timestamp: [Int?]?
         let indicators: IndicatorsDTO
+        let meta: MetaDTO
     }
-
+    
+    
+    struct MetaDTO: Decodable {
+        let range: String
+    }
+    
     struct IndicatorsDTO: Decodable {
         let quote: [QuoteDTO]
     }
@@ -35,7 +41,8 @@ extension ChartResponseDTO {
 extension ChartResponseDTO.ChartResultDTO {
     func toDomain() throws -> [ChartEntity] {
         
-        guard let timestamp = timestamp, let quoteRates = indicators.quote[0].close
+        guard let timestamp = timestamp,
+              let quoteRates = indicators.quote[0].close
         else {
             throw NetworkError.dataParse
         }
@@ -53,6 +60,8 @@ extension ChartResponseDTO {
         }
         
         let data = try results.toDomain()
-        return try ChartEntities(chart: data, errorMsg: chart.error)
+        return try ChartEntities(chart: data,
+                                 interval: results.meta.range,
+                                 errorMsg: chart.error)
     }
 }

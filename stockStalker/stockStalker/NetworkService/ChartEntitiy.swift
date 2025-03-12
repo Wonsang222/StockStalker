@@ -9,14 +9,19 @@ import Foundation
 
 struct ChartEntities {
     let chart: [ChartEntity]
+    let interval: Character
     
     init(
         chart: [ChartEntity],
+        interval: String,
         errorMsg: String?
     ) throws {
         if errorMsg != nil {
             throw NetworkError.dataParse
         }
+        
+        var intervalCopy = interval
+        self.interval = intervalCopy.popLast()!
         self.chart = chart
     }
 }

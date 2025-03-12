@@ -6,22 +6,23 @@
 //
 
 import UIKit
-import SwiftUI
-
-// label font -> size
-
-// chartMainView -> controlEvent -> 
 
 final class ChartMainView: UIView {
     
-    private(set) var chartEntities: ChartEntities
+    private var chartEntities: ChartEntities? = nil {
+        didSet {
+            configureData()
+        }
+    }
     
     private let _chart: ChartView = ChartView(frame: .zero)
-    
+        
     private let _segment: UISegmentedControl = {
         let seg = UISegmentedControl()
-        let actions = YahooServices.allCases
-            .map { UIAction(title: $0.rawValue) { action in   }}
+        let actions = YahooServices
+                        .allCases
+                        .map { UIAction(title: $0.rawValue) { action in   }}
+        
         for (idx,action) in actions.enumerated() {
             seg.setAction(action, forSegmentAt: idx)
         }
@@ -29,23 +30,31 @@ final class ChartMainView: UIView {
         return seg
     }()
     
-    private let _sideView: ChartSideView!
-    private let _underView: UIView = UIView(frame: .zero)
+    private let _sideView: ChartSideView = ChartSideView(frame: .zero)
+    private let _underView: ChartUnderView = ChartUnderView(frame: .zero)
     
-    init(chartEntities: ChartEntities?) {
-        if let chartEntities = chartEntities {
-            self.chartEntities = chartEntities
-        }
-        super.init(frame: .zero)
+    var segmentController: UISegmentedControl {
+        return _segment
+    }
+    
+    public func setEntities(_ entities: ChartEntities) {
+        self.chartEntities = entities
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        configureUI()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        configureUI()
+    private func configureData() {
+        self._chart.setEntities(self.chartEntities)
+        self._sideView.setEntities(self.chartEntities)
+        self._underView.setEntities(self.chartEntities)
     }
     
     private func configureUI() {
@@ -75,4 +84,12 @@ final class ChartMainView: UIView {
     }
 }
 
+
+
+#if canImport(SwiftUI)
+import SwiftUI
+
+
+
+#endif
 

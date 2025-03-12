@@ -9,20 +9,25 @@ import UIKit
 
 final class ChartSideView: UIStackView {
     
-    private(set) var entities: ChartEntities {
+    private var entities: ChartEntities? = nil {
         didSet {
             calculateLabelText()
         }
     }
     
-    init( entities: ChartEntities) {
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
         self.axis = .vertical
         self.distribution = .equalCentering
         self.alignment = .center
-        super.init(frame: .zero)
+    }
+
+    public func setEntities(_ entities: ChartEntities?) {
+        self.entities = entities
     }
     
     private func calculateLabelText() {
+        guard let entities = entities else { return }
         let firstValue = entities.chart[0].rate
         let maxMin = entities.chart.reduce((firstValue, firstValue)) { partialResult, current in
             let max = current.rate > partialResult.0 ? current.rate : partialResult.0

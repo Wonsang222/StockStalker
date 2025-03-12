@@ -8,7 +8,7 @@
 import Foundation
 
 // 1일 https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=1d&interval=1h
-// 7일 https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=7d&interval=1d
+// 7일 https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=1wk&interval=1d
 // 1달 https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=1mo&interval=1d
 // 3달 https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=3mo&interval=1d
 // 6달 https://query1.finance.yahoo.com/v8/finance/chart/KRW=X?range=6mo&interval=1d

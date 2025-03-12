@@ -7,8 +7,13 @@
 
 import UIKit
 
+// Date
+// 1. parsing
+// 2. d -> time
+// 3. 
+
 final class ChartUnderView: UIView {
-    private(set) var chartEntities: ChartEntities
+    private var chartEntities: ChartEntities? = nil
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,12 +23,18 @@ final class ChartUnderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public func setEntities(_ entities: ChartEntities?) {
+        self.chartEntities = entities
+    }
+    
     private func configureUI(_ entities: ChartEntities) {
         
     }
     
     private func parseEntities(_ entities: ChartEntities) {
-        for i in entities.chart {
+        
+        
+        for entity in entities.chart {
             
         }
     }

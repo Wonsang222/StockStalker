@@ -9,6 +9,8 @@ import RxSwift
 import RxCocoa
 import ReactorKit
 
+// logger 추가
+
 final class MoneyRateViewModel: Reactor {
     private let _networkService: RxDataTransferWrapperType
     
@@ -86,7 +88,7 @@ extension MoneyRateViewModel {
 
 extension MoneyRateViewModel.Action {
     static func isNewFetching(with action: MoneyRateViewModel.Action) -> Bool {
-        if case .tapBtn(let yahooServices) = action {
+        if case .tapBtn = action {
             return true
         }
         return false
