@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class ChartSideView: UIStackView {
     
@@ -48,3 +49,17 @@ final class ChartSideView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+#if DEBUG
+struct SideViewPreview: PreviewProvider {
+    static var previews: some View {
+        ChartPreview {
+            let v = ChartSideView(frame: .zero)
+            v.backgroundColor = .red
+            return v
+        }
+    }
+}
+#endif
+

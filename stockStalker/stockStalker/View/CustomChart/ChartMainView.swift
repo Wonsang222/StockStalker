@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 final class ChartMainView: UIView {
     
@@ -19,14 +20,8 @@ final class ChartMainView: UIView {
     private let _sideView: ChartSideView = ChartSideView(frame: .zero)
         
     private let _segment: UISegmentedControl = {
-        let seg = UISegmentedControl()
-        let actions = YahooServices
-                        .allCases
-                        .map { UIAction(title: $0.rawValue) { action in   }}
-        
-        for (idx,action) in actions.enumerated() {
-            seg.setAction(action, forSegmentAt: idx)
-        }
+        let titles = YahooServices.allCases.map { $0.rawValue }
+        let seg = UISegmentedControl(items: titles)
         seg.selectedSegmentIndex = 0
         return seg
     }()
@@ -60,7 +55,7 @@ final class ChartMainView: UIView {
         self.safeAddSubView(_chart)
         
         NSLayoutConstraint.activate([
-            _segment.leadingAnchor.constraint(equalTo: self.leftAnchor),
+            _segment.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             _segment.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             _segment.bottomAnchor.constraint(equalTo: self.bottomAnchor),
                         
@@ -76,12 +71,15 @@ final class ChartMainView: UIView {
     }
 }
 
-
-
-#if canImport(SwiftUI)
-import SwiftUI
-
-
-
+#if DEBUG
+struct MainViewPreview: PreviewProvider {
+    static var previews: some View {
+        ChartPreview {
+            let v = ChartMainView(frame: .zero)
+            v.backgroundColor = .green.withAlphaComponent(0.2)
+            return v
+        }
+        .frame(width: 300, height: 300)
+    }
+}
 #endif
-

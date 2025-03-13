@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 extension UIView {
     func safeAddSubView(_ on: UIView) {
@@ -13,3 +14,22 @@ extension UIView {
         self.addSubview(on)
     }
 }
+
+
+struct ChartPreview<View: UIView>: UIViewRepresentable {
+    let view: View
+    
+    init(_ builder: @escaping () -> View) {
+        view = builder()
+    }
+    
+    func makeUIView(context: Context) -> some UIView {
+        return view
+    }
+    
+    func updateUIView(_ uiView: UIViewType, context: Context) {
+        uiView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        uiView.setContentHuggingPriority(.defaultHigh, for: .vertical)
+    }
+}
+
