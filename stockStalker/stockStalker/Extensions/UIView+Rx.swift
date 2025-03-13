@@ -9,7 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-extension Reactive where Base: UIView {
+extension Reactive where Base: ChartMainView {
     
     var isLoading: Binder<Bool> {
         return Binder(base) { base, isLoading in

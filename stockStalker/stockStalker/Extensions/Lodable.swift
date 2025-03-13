@@ -7,9 +7,9 @@
 
 import UIKit
 
-protocol Lodable {}
+protocol Loadable {}
 
-extension Lodable where Self: UIView {
+extension Loadable where Self: ChartMainView {
     
     func showActivityIndicator() {
         let activityIndicator = UIActivityIndicatorView(style: .medium)
@@ -24,13 +24,14 @@ extension Lodable where Self: UIView {
     }
     
     func removeActivityIndicator() {
-        self.subviews.forEach{ view in
-            if let indicator = view as? UIActivityIndicatorView {
+        for subView in subviews {
+            if let indicator = subView as? UIActivityIndicatorView {
                 indicator.stopAnimating()
                 indicator.removeFromSuperview()
+                break
             }
         }
     }
 }
 
-extension UIView: Lodable {}
+extension ChartMainView: Loadable {}

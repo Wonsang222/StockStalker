@@ -11,9 +11,9 @@ final class ChartView: UIView {
     
     private let _beizierPath = UIBezierPath()
     
-    private var chartInfo: ChartEntities? {
+    private var _chartInfo: ChartEntities? {
         didSet {
-            guard let _entities = chartInfo else { return }
+            guard let _entities = _chartInfo else { return }
             var rates = [CGFloat]()
             
             for chartInfo in _entities.chart {
@@ -38,7 +38,7 @@ final class ChartView: UIView {
     }
     
     public func setEntities(_ entities: ChartEntities?) {
-        self.chartInfo = entities
+        self._chartInfo = entities
     }
     
     private func removeExistingLayer(tagNum: Int) {
@@ -51,21 +51,23 @@ final class ChartView: UIView {
         }
     }
     
-    override func draw(_ rect: CGRect) {
-        guard !_rates.isEmpty else { return }
-        let tag  = 100
-        removeExistingLayer(tagNum: tag)
-        
+    private func calculateLocationX(rect: CGRect) -> [CGFloat] {
+        var positionX = [CGFloat]()
         let width = rect.size.width
-        let height = rect.size.height
-        let taggedLayer = TaggedLayer(tag: tag)
         let x = width / _rates.count.makeCGFloat
         
-        // y 고점 저점 -> 비율계산
+        for (idx, _) in _rates.enumerated() {
+            let spotX = x * idx.makeCGFloat
+            positionX.append(spotX)
+        }
+        
+        return positionX
+    }
+    
+    private func calculateLocationY(rect: CGRect) -> [CGFloat] {
+        let height = rect.size.height
         var positionY = [CGFloat]()
-        // range : height : spotY : y    height * spotY = range *  y     y =  height * spotY /  range
         let firstYValue = _rates[0]
-        // 최대 최소
         let maxminY = _rates.reduce((firstYValue, firstYValue)) { partialResult, currentValue in
             let max = currentValue > partialResult.0 ? currentValue : partialResult.0
             let min = currentValue < partialResult.1 ? currentValue : partialResult.1
@@ -81,13 +83,18 @@ final class ChartView: UIView {
             positionY.append(yLocation)
         }
         
-        var positionX = [CGFloat]()
-        
-        for (idx, _) in _rates.enumerated() {
-            let spotX = x * idx.makeCGFloat
-            positionX.append(spotX)
-        }
-        
+        return positionY
+    }
+    
+    override func draw(_ rect: CGRect) {
+        guard !_rates.isEmpty else { return }
+        let tag  = 100
+        removeExistingLayer(tagNum: tag)
+
+        let taggedLayer = TaggedLayer(tag: tag)
+        let positionY = calculateLocationY(rect: rect)
+        let positionX = calculateLocationX(rect: rect)
+       
         var locationXY = [CGPoint]()
         
         zip(positionX, positionY).forEach { locationXY.append(CGPoint(x: $0, y: $1)) }
@@ -111,23 +118,5 @@ final class ChartView: UIView {
         taggedLayer.fillColor = UIColor.clear.cgColor
         
         self.layer.addSublayer(taggedLayer)
-    }
-}
-
-fileprivate final class TaggedLayer: CAShapeLayer {
-    let tag: Int
-    init(tag: Int) {
-        self.tag = tag
-        super.init()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-fileprivate extension Int {
-    var makeCGFloat: CGFloat {
-        return CGFloat(self)
     }
 }

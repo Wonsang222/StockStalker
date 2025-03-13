@@ -42,14 +42,14 @@ final class MoneyRateViewModel: Reactor {
             Observable.concat([
                 Observable.just(.setLoading(true)),
                 _networkService.request(convertToEndpoint(with: yahooService))
-                    .map{ try Mutation.fetchFinancialInfo($0.toDomain()) }
+                    .map { try Mutation.fetchFinancialInfo($0.toDomain()) }
                     .asObservable()
                     .take(until: self.action.filter(Action.isNewFetching))
                     .catch(self.createErrorHandler)
                 ,Observable.just(.setLoading(false))
             ])
         }
-    }
+    }   
     
     func reduce(state: State, mutation: Mutation) -> State {
         var state = state

@@ -9,7 +9,7 @@ import Foundation
 
 struct ChartEntities {
     let chart: [ChartEntity]
-    let interval: Character
+    let interval: String
     
     init(
         chart: [ChartEntity],
@@ -20,8 +20,7 @@ struct ChartEntities {
             throw NetworkError.dataParse
         }
         
-        var intervalCopy = interval
-        self.interval = intervalCopy.popLast()!
+        self.interval = interval
         self.chart = chart
     }
 }
