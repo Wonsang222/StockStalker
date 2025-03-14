@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 final class ChartSideView: UIStackView {
     
@@ -30,7 +29,8 @@ final class ChartSideView: UIStackView {
     private func calculateLabelText() {
         guard let entities = entities else { return }
         let firstValue = entities.chart[0].rate
-        let maxMin = entities.chart.reduce((firstValue, firstValue)) { partialResult, current in
+        let maxMin = entities.chart
+                .reduce((firstValue, firstValue)) { partialResult, current in
             let max = current.rate > partialResult.0 ? current.rate : partialResult.0
             let min = current.rate < partialResult.1 ? current.rate : partialResult.1
             return (max,min)
@@ -39,7 +39,11 @@ final class ChartSideView: UIStackView {
         
         (0...4).forEach { idx in
             let label = UILabel()
-            let value = (maxMinGapRatio * idx) + maxMin.1
+            let value = maxMin.0 - (maxMinGapRatio * idx)
+            label.textAlignment = .center
+            label.numberOfLines = 1
+            label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.7
             label.text = "\(value)"
             self.addArrangedSubview(label)
         }
@@ -49,17 +53,3 @@ final class ChartSideView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
-
-#if DEBUG
-struct SideViewPreview: PreviewProvider {
-    static var previews: some View {
-        ChartPreview {
-            let v = ChartSideView(frame: .zero)
-            v.backgroundColor = .red
-            return v
-        }
-    }
-}
-#endif
-

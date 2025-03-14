@@ -6,11 +6,11 @@
 //
 
 import UIKit
+import AVFoundation
 
 final class ChartView: UIView {
     
     private let _beizierPath = UIBezierPath()
-    
     private var _chartInfo: ChartEntities? {
         didSet {
             guard let _entities = _chartInfo else { return }
@@ -29,12 +29,114 @@ final class ChartView: UIView {
         }
     }
     
+    private var locations: [CGPoint] = []
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        // 시작
+        // 보정
+        // x,y 가격 label?
+        
+        // x축 기준. -> y 축으로 찾아가기
+        guard let touchXY = touches.first?.location(in: self),
+              !locations.isEmpty
+        else {
+            return
+        }
+
+        let touchX = touchXY.x
+        // 보정
+        for location in locations {
+            if touchX <= location.x {
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                let x = location.x
+                let y = location.y
+                let height = self.bounds.height
+                let width = self.bounds.width
+                
+                // (0, y) -> (width, y)
+                // (x, 0) -> (x, height)
+                
+                let path = UIBezierPath()
+                // 라인 세로
+                path.move(to: CGPoint(x: 0, y: y))
+                path.addLine(to: CGPoint(x: width, y: y))
+                // 라인 가로
+                path.move(to: CGPoint(x: x, y: 0))
+                path.addLine(to: CGPoint(x: x, y: height))
+                
+                let taglayer = TaggedLayer(tag: 200)
+                taglayer.path = path.cgPath
+                taglayer.strokeColor = UIColor.gray.cgColor
+                taglayer.fillColor = UIColor.clear.cgColor
+                taglayer.lineWidth = 1
+                
+                self.layer.addSublayer(taglayer)
+                
+                break
+            }
+        }
+ 
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        // 이동 + 진동
+        removeExistingLayer(tagNum: 200)
+        
+        guard let touchXY = touches.first?.location(in: self),
+              !locations.isEmpty
+        else {
+            return
+        }
+        
+        let touchX = touchXY.x
+        // 보정
+        for location in locations {
+            if touchX <= location.x {
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+                let x = location.x
+                let y = location.y
+                let height = self.bounds.height
+                let width = self.bounds.width
+                
+                // (0, y) -> (width, y)
+                // (x, 0) -> (x, height)
+                
+                let path = UIBezierPath()
+                // 라인 세로
+                path.move(to: CGPoint(x: 0, y: y))
+                path.addLine(to: CGPoint(x: width, y: y))
+                // 라인 가로
+                path.move(to: CGPoint(x: x, y: 0))
+                path.addLine(to: CGPoint(x: x, y: height))
+                
+                let taglayer = TaggedLayer(tag: 200)
+                taglayer.path = path.cgPath
+                taglayer.strokeColor = UIColor.gray.cgColor
+                taglayer.fillColor = UIColor.clear.cgColor
+                taglayer.lineWidth = 1
+                
+                self.layer.addSublayer(taglayer)
+                
+                break
+            }
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        // 삭제
+        removeExistingLayer(tagNum: 200)
+        
     }
     
     public func setEntities(_ entities: ChartEntities?) {
@@ -65,7 +167,7 @@ final class ChartView: UIView {
     }
     
     private func calculateLocationY(rect: CGRect) -> [CGFloat] {
-        let height = rect.size.height
+        let height = rect.height
         var positionY = [CGFloat]()
         let firstYValue = _rates[0]
         let maxminY = _rates.reduce((firstYValue, firstYValue)) { partialResult, currentValue in
@@ -80,6 +182,7 @@ final class ChartView: UIView {
         _rates.forEach {
             let spotY = $0 - minY
             let yLocation = height * spotY / range
+            
             positionY.append(yLocation)
         }
         
@@ -94,19 +197,18 @@ final class ChartView: UIView {
         let taggedLayer = TaggedLayer(tag: tag)
         let positionY = calculateLocationY(rect: rect)
         let positionX = calculateLocationX(rect: rect)
-       
-        var locationXY = [CGPoint]()
+
+    
+        zip(positionX, positionY).forEach { locations.append(CGPoint(x: $0, y: $1)) }
         
-        zip(positionX, positionY).forEach { locationXY.append(CGPoint(x: $0, y: $1)) }
-        
-        for (idx,location) in locationXY.enumerated() {
+        for (idx,location) in locations.enumerated() {
+
             if idx == 0 {
                 _beizierPath.move(to: location)
                 continue
             }
-            if idx == locationXY.count - 1 {
+            if idx == locations.count - 1 {
                 _beizierPath.addLine(to: location)
-                _beizierPath.close()
                 break
             }
             _beizierPath.addLine(to: location)
@@ -114,7 +216,7 @@ final class ChartView: UIView {
         
         taggedLayer.path = _beizierPath.cgPath
         taggedLayer.strokeColor = UIColor.red.cgColor
-        taggedLayer.lineWidth = 3
+        taggedLayer.lineWidth = 2
         taggedLayer.fillColor = UIColor.clear.cgColor
         
         self.layer.addSublayer(taggedLayer)
