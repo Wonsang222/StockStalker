@@ -41,68 +41,32 @@ final class ChartView: UIView {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        // 시작
-        // 보정
-        // x,y 가격 label?
-        
-        // x축 기준. -> y 축으로 찾아가기
-        guard let touchXY = touches.first?.location(in: self),
-              !locations.isEmpty
-        else {
-            return
-        }
-
-        let touchX = touchXY.x
-        // 보정
-        for location in locations {
-            if touchX <= location.x {
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-                let x = location.x
-                let y = location.y
-                let height = self.bounds.height
-                let width = self.bounds.width
-                
-                // (0, y) -> (width, y)
-                // (x, 0) -> (x, height)
-                
-                let path = UIBezierPath()
-                // 라인 세로
-                path.move(to: CGPoint(x: 0, y: y))
-                path.addLine(to: CGPoint(x: width, y: y))
-                // 라인 가로
-                path.move(to: CGPoint(x: x, y: 0))
-                path.addLine(to: CGPoint(x: x, y: height))
-                
-                let taglayer = TaggedLayer(tag: 200)
-                taglayer.path = path.cgPath
-                taglayer.strokeColor = UIColor.gray.cgColor
-                taglayer.fillColor = UIColor.clear.cgColor
-                taglayer.lineWidth = 1
-                
-                self.layer.addSublayer(taglayer)
-                
-                break
-            }
-        }
- 
+        addTouchLine(touches)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
-        // 이동 + 진동
+        addTouchLine(touches)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
         removeExistingLayer(tagNum: 200)
-        
+    }
+    
+    private func addTouchLine(_ touches: Set<UITouch>) {
         guard let touchXY = touches.first?.location(in: self),
               !locations.isEmpty
         else {
             return
         }
         
+        removeExistingLayer(tagNum: 200)
+        
         let touchX = touchXY.x
         // 보정
         for location in locations {
             if touchX <= location.x {
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
                 let x = location.x
                 let y = location.y
                 let height = self.bounds.height
@@ -124,19 +88,13 @@ final class ChartView: UIView {
                 taglayer.strokeColor = UIColor.gray.cgColor
                 taglayer.fillColor = UIColor.clear.cgColor
                 taglayer.lineWidth = 1
-                
+                // 진동
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
                 self.layer.addSublayer(taglayer)
                 
                 break
             }
         }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesEnded(touches, with: event)
-        // 삭제
-        removeExistingLayer(tagNum: 200)
-        
     }
     
     public func setEntities(_ entities: ChartEntities?) {
@@ -162,7 +120,6 @@ final class ChartView: UIView {
             let spotX = x * idx.makeCGFloat
             positionX.append(spotX)
         }
-        
         return positionX
     }
     
@@ -176,16 +133,19 @@ final class ChartView: UIView {
             return (max,min)
         }
         
+        let maxY = maxminY.0
         let minY = maxminY.1
-        let range = maxminY.0 - minY
+        let range = maxY - minY
+        
+        // height : range = x : spotY
+        // x  = spotyY * hegiht / range
+        // CGPoint -> 반전
         
         _rates.forEach {
             let spotY = $0 - minY
-            let yLocation = height * spotY / range
-            
+            let yLocation = height * (1 - (spotY / range))
             positionY.append(yLocation)
         }
-        
         return positionY
     }
     
@@ -198,7 +158,6 @@ final class ChartView: UIView {
         let positionY = calculateLocationY(rect: rect)
         let positionX = calculateLocationX(rect: rect)
 
-    
         zip(positionX, positionY).forEach { locations.append(CGPoint(x: $0, y: $1)) }
         
         for (idx,location) in locations.enumerated() {

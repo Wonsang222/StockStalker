@@ -33,12 +33,8 @@ import UIKit
 fileprivate let MAXIMUM: Int = 5
 
 final class ChartUnderView: UIView {
-    private var chartEntities: ChartEntities? = nil {
-        didSet {
-            configureUI()
-        }
-    }
     
+    private var chartEntities: ChartEntities? = nil
     private let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yy년-MM월-dd일-HH시"
@@ -53,14 +49,6 @@ final class ChartUnderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setEntities(_ entities: ChartEntities?) {
-        self.chartEntities = entities
-    }
-    
-    private func configureUI() {
-        guard let chartEntities = chartEntities else { return }
-        
-    }
     
     private func filterRegularExpressionByPolicy(entities: ChartEntities) -> String {
         let periodInterval = entities.interval

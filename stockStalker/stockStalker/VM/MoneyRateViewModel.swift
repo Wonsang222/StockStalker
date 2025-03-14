@@ -63,7 +63,6 @@ final class MoneyRateViewModel: Reactor {
         }
         return state
     }
-    
 }
 
 extension MoneyRateViewModel {
