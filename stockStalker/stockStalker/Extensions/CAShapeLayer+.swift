@@ -9,6 +9,7 @@ import UIKit
 
 final class TaggedLayer: CAShapeLayer {
     let tag: Int
+    
     init(tag: Int) {
         self.tag = tag
         super.init()

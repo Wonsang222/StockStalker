@@ -27,7 +27,6 @@ final class ChartMainView: UIView {
     private let _segment: UISegmentedControl = {
         let titles = YahooServices.allCases.map { $0.rawValue }
         let seg = UISegmentedControl(items: titles)
-        seg.backgroundColor = .black
         seg.selectedSegmentIndex = 0
         return seg
     }()
