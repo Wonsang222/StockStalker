@@ -9,8 +9,14 @@ import UIKit
 import AVFoundation
 
 final class ChartView: UIView {
-    
+
+    private var _infoView: UIView?
     private let _beizierPath = UIBezierPath()
+    private let _formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
     private var _chartInfo: ChartEntities? {
         didSet {
             guard let _entities = _chartInfo else { return }
@@ -42,16 +48,64 @@ final class ChartView: UIView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         addTouchLine(touches)
+        addInfoLabel(touches)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         addTouchLine(touches)
+        addInfoLabel(touches)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
         removeExistingLayer(tagNum: 200)
+        _infoView?.removeFromSuperview()
+    }
+    
+    private func addInfoLabel(_ touches: Set<UITouch>) {
+        guard let touchXY = touches.first?.location(in: self),
+              !locations.isEmpty,
+              let chartInfo = _chartInfo
+        else {
+            return
+        }
+        
+        _infoView?.removeFromSuperview()
+        let _label = { UINib(nibName: "ChartLabel", bundle: nil).instantiate(withOwner: self).first as! UIView }()
+        let touchX = touchXY.x
+        // 보정
+        for (idx,location) in locations.enumerated() {
+            if touchX <= location.x {
+                let x = location.x
+                let y = location.y
+                
+                var infoViewY = self.bounds.height - 10
+                let midHeight = self.bounds.height / 2
+                
+                if y > midHeight {
+                    // 절반보다 높을때,
+                    infoViewY = 0
+                }
+                
+                // info Label 위치는 중간 이상일때 기준선 왼쪽에 위치
+                // rate가 midY 높을때 맨 아래에 info
+                
+                _infoView = _label
+                let sv = _infoView?.viewWithTag(3) as! UIStackView
+                let dateLabel = sv.viewWithTag(1) as! UILabel
+                let rateLabel = sv.viewWithTag(2) as! UILabel
+                let currentInfo = chartInfo.chart[idx]
+                dateLabel.text = "\(self.convertDate(currentInfo.timestamp))"
+                rateLabel.text = "\(currentInfo.rate)"
+                
+                let size = _infoView!.intrinsicContentSize
+                _infoView!.frame = CGRect(origin: CGPoint(x: x, y: infoViewY), size: size)
+                addSubview(_infoView!)
+                
+                break
+            }
+        }
     }
     
     private func addTouchLine(_ touches: Set<UITouch>) {
@@ -179,5 +233,11 @@ final class ChartView: UIView {
         taggedLayer.fillColor = UIColor.clear.cgColor
         
         self.layer.addSublayer(taggedLayer)
+    }
+    
+    private func convertDate(_ interval: Int) -> String {
+        let interval = TimeInterval(truncating: interval as NSNumber)
+        let date = Date(timeIntervalSince1970: interval)
+        return _formatter.string(from: date)
     }
 }
