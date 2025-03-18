@@ -281,10 +281,11 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="currentRateLabel" destination="Fwc-e0-eqP" id="jKy-FF-9F2"/>
+                        <outlet property="currentRateLabel" destination="Fwc-e0-eqP" id="wDZ-gB-6py"/>
                         <outlet property="currentRatePercent" destination="mLi-T2-DGv" id="gAX-IM-jpT"/>
                         <outlet property="currentRateRatio" destination="U7W-q6-p1Y" id="aDU-bv-oJj"/>
                         <outlet property="currnetRateUPDown" destination="sUb-YP-0hg" id="9it-mk-h6G"/>
+                        <outlet property="nationFlagLabel" destination="bjA-JD-Iwl" id="016-Ot-ATP"/>
                         <outlet property="standardTime" destination="Z6a-5e-LiY" id="TJ0-zF-A8F"/>
                     </connections>
                 </viewController>
