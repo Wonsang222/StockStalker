@@ -172,14 +172,6 @@ extension ChartView {
         // 보정
         for (idx,location) in locations.enumerated() {
             if touchX <= location.x {
-                var x:CGFloat = idx.makeCGFloat
-                let y = location.y
-                
-                var infoViewY = self.bounds.height - 10
-                let midHeight = self.bounds.height / 2
-            
-                // info Label 위치는 중간 이상일때 기준선 왼쪽에 위치
-                // rate가 midY 높을때 맨 아래에 info
                 
                 _infoView = _label
                 let sv = _infoView?.viewWithTag(3) as! UIStackView
@@ -190,6 +182,15 @@ extension ChartView {
                 rateLabel.text = "\(currentInfo.rate)"
                 let size = _infoView!.intrinsicContentSize
                 
+                var x:CGFloat = idx.makeCGFloat + (dateLabel.intrinsicContentSize.width / 2)
+                let y = location.y
+                
+                var infoViewY = self.bounds.height - 10
+                let midHeight = self.bounds.height / 2
+            
+                // info Label 위치는 중간 이상일때 기준선 왼쪽에 위치
+                // rate가 midY 높을때 맨 아래에 info
+            
                 if y > midHeight {
                     // y축의 값이 절반 보다 높을때 label위치는 아래
                     infoViewY = 0
@@ -197,7 +198,7 @@ extension ChartView {
 
                 // x의 값이 차트 중간을 넘어가면, 위치를 이동
                 if idx > locations.count / 2 {
-                    x = x - (sv.bounds.width)
+                    x = idx.makeCGFloat - (dateLabel.intrinsicContentSize.width / 2)
                 }
     
                 _infoView!.frame = CGRect(origin: CGPoint(x: x, y: infoViewY), size: size)

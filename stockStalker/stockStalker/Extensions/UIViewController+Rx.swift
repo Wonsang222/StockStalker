@@ -11,9 +11,9 @@ import RxCocoa
 
 extension Reactive where Base: UIViewController {
     
-    var error: Binder<Error> {
+    var error: Binder<ErrorHandler> {
         return Binder(base) { vc, err in
-            vc.showError(message: err.localizedDescription)
+            vc.showError(message: err.message.localizedDescription, completion: err.completion)
         }
     }
     

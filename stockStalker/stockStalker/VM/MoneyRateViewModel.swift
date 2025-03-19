@@ -6,8 +6,8 @@
 //
 
 import RxSwift
-import RxCocoa
 import ReactorKit
+import Foundation
 
 // logger 추가
 
@@ -33,6 +33,7 @@ final class MoneyRateViewModel: Reactor {
         @Pulse var rates: ChartEntities?
         @Pulse var error: ErrorHandler?
         @Pulse var isLoading: Bool = false
+        @Pulse var date: Date? = nil
     }
     
     let initialState: State = State()

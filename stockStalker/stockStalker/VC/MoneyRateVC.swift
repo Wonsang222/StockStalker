@@ -35,7 +35,7 @@ final class MoneyRateVC: UIViewController, StoryboardView {
     
     // MARK: - Graph
     @IBOutlet weak var chartContainer: UIView!
-    
+    private let _chartView = ChartMainView()
     var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -45,11 +45,17 @@ final class MoneyRateVC: UIViewController, StoryboardView {
     }
     
     private func configureUI() {
-        let chartView = ChartMainView(frame: chartContainer.frame)
-        chartContainer.addSubview(ChartMainView(frame: .zero))
+        _chartView.frame = chartContainer.frame
+        chartContainer.addSubview(_chartView)
     }
     
     func bind(reactor: MoneyRateViewModel) {
         
+        
+        
+        reactor.pulse(\.$error)
+            .compactMap {$0}
+            .bind(to: rx.error)
+            .disposed(by: disposeBag)
     }
 }
