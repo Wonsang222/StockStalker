@@ -12,6 +12,13 @@ protocol Loadable {}
 extension Loadable where Self: ChartMainView {
     
     func showActivityIndicator() {
+        
+        for subview in subviews {
+            if let indicator = subview as? UIActivityIndicatorView {
+                return
+            }
+        }
+        
         let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.tintColor = .gray
         self.safeAddSubView(activityIndicator)

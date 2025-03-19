@@ -158,6 +158,7 @@ extension ChartView {
     
     
     private func addInfoLabel(_ touches: Set<UITouch>) {
+        
         guard let touchXY = touches.first?.location(in: self),
               !locations.isEmpty,
               let chartInfo = _chartInfo
@@ -194,15 +195,11 @@ extension ChartView {
                     infoViewY = 0
                 }
 
+                // x의 값이 차트 중간을 넘어가면, 위치를 이동
                 if idx > locations.count / 2 {
-                    print(x)
-                    print(sv.bounds.width)
                     x = x - (sv.bounds.width)
-                    
                 }
-                
-                
-                
+    
                 _infoView!.frame = CGRect(origin: CGPoint(x: x, y: infoViewY), size: size)
                 addSubview(_infoView!)
                 break
