@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,37 +14,33 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="138"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" tag="3" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="P32-rm-G8t">
-                    <rect key="frame" x="184.33333333333334" y="50.666666666666671" width="24.666666666666657" height="36.666666666666671"/>
+                <stackView opaque="NO" tag="3" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ypv-Bg-jkA">
+                    <rect key="frame" x="178.66666666666666" y="56.333333333333343" width="36" height="50.666666666666657"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vv2-6c-ngu">
-                            <rect key="frame" x="0.0" y="0.0" width="24.666666666666668" height="13.333333333333334"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d7O-vg-1SG">
+                            <rect key="frame" x="0.0" y="0.0" width="36" height="20.333333333333332"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXi-Gw-ixU">
-                            <rect key="frame" x="0.0" y="23.333333333333336" width="24.666666666666668" height="13.333333333333336"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucV-rM-ftr">
+                            <rect key="frame" x="0.66666666666668561" y="30.333333333333336" width="34.666666666666664" height="20.333333333333336"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="P32-rm-G8t" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="1sH-4S-Fk9"/>
-                <constraint firstItem="P32-rm-G8t" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="rfw-2g-JlJ"/>
+                <constraint firstItem="ypv-Bg-jkA" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerYWithinMargins" id="ghM-Nh-Uyz"/>
+                <constraint firstItem="ypv-Bg-jkA" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="t2f-k6-4bu"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="130.53435114503816" y="-262.67605633802816"/>
         </view>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

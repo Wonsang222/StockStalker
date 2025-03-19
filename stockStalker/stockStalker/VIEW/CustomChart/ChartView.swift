@@ -171,17 +171,12 @@ extension ChartView {
         // 보정
         for (idx,location) in locations.enumerated() {
             if touchX <= location.x {
-                let x = location.x
+                var x:CGFloat = idx.makeCGFloat
                 let y = location.y
                 
                 var infoViewY = self.bounds.height - 10
                 let midHeight = self.bounds.height / 2
-                
-                if y > midHeight {
-                    // 절반보다 높을때,
-                    infoViewY = 0
-                }
-                
+            
                 // info Label 위치는 중간 이상일때 기준선 왼쪽에 위치
                 // rate가 midY 높을때 맨 아래에 info
                 
@@ -192,12 +187,24 @@ extension ChartView {
                 let currentInfo = chartInfo.chart[idx]
                 dateLabel.text = "\(self.convertDate(currentInfo.timestamp))"
                 rateLabel.text = "\(currentInfo.rate)"
-                
-                // autolayout 으로 변경
                 let size = _infoView!.intrinsicContentSize
+                
+                if y > midHeight {
+                    // y축의 값이 절반 보다 높을때 label위치는 아래
+                    infoViewY = 0
+                }
+
+                if idx > locations.count / 2 {
+                    print(x)
+                    print(sv.bounds.width)
+                    x = x - (sv.bounds.width)
+                    
+                }
+                
+                
+                
                 _infoView!.frame = CGRect(origin: CGPoint(x: x, y: infoViewY), size: size)
                 addSubview(_infoView!)
-                
                 break
             }
         }

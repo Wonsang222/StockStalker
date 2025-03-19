@@ -20,6 +20,7 @@ final class MoneyRateViewModel: Reactor {
     
     enum Action {
         case tapBtn(YahooServices)
+//        case fetchHanaBankInfo
     }
     
     enum Mutation {

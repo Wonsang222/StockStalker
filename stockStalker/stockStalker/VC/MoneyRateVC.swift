@@ -12,20 +12,41 @@ import ReactorKit
 
 final class MoneyRateVC: UIViewController, StoryboardView {
     
-    
-    @IBOutlet weak var nationFlagLabel: UILabel!
+    // MARK: - Current Rate
+    @IBOutlet weak var nationalFlagLabel: UILabel!
+    @IBOutlet weak var nationalCurrencyLabel: UILabel!
     @IBOutlet weak var currentRateLabel: UILabel!
-    @IBOutlet weak var currnetRateUPDown: UILabel!
-    @IBOutlet weak var currentRateRatio: UILabel!
-    @IBOutlet weak var currentRatePercent: UILabel!
-    @IBOutlet weak var standardTime: UILabel!
+    @IBOutlet weak var currentUpDown: UILabel!
+    @IBOutlet weak var currentRatio: UILabel!
+    @IBOutlet weak var currentPercent: UILabel!
     
+    // MARK: - Time Standard
+    @IBOutlet weak var timeLabel: UILabel!
     
+    // MARK: - Time Standard
+    @IBOutlet weak var hanaBankRate: UILabel!
+    @IBOutlet weak var hanaBankUpDown: UILabel!
+    @IBOutlet weak var hanaBankRatio: UILabel!
+    @IBOutlet weak var hanaBankPercent: UILabel!
+    
+    // MARK: - Time Standard
+    @IBOutlet weak var sellLabel: UILabel!
+    @IBOutlet weak var buyLabel: UILabel!
+    
+    // MARK: - Graph
+    @IBOutlet weak var chartContainer: UIView!
     
     var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
+        
+    }
+    
+    private func configureUI() {
+        let chartView = ChartMainView(frame: chartContainer.frame)
+        chartContainer.addSubview(ChartMainView(frame: .zero))
     }
     
     func bind(reactor: MoneyRateViewModel) {

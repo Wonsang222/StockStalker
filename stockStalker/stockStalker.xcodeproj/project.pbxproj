@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		7E1751862D36175D0097FE4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1751852D36175D0097FE4A /* AppDelegate.swift */; };
 		7E1751882D36175D0097FE4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1751872D36175D0097FE4A /* SceneDelegate.swift */; };
-		7E17518A2D36175D0097FE4A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1751892D36175D0097FE4A /* ViewController.swift */; };
 		7E17518D2D36175D0097FE4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E17518B2D36175D0097FE4A /* Main.storyboard */; };
 		7E17518F2D3617610097FE4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E17518E2D3617610097FE4A /* Assets.xcassets */; };
 		7E1751922D3617610097FE4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1751902D3617610097FE4A /* LaunchScreen.storyboard */; };
@@ -32,7 +31,6 @@
 		7E1751822D36175D0097FE4A /* stockStalker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stockStalker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E1751852D36175D0097FE4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E1751872D36175D0097FE4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7E1751892D36175D0097FE4A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7E17518C2D36175D0097FE4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7E17518E2D3617610097FE4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E1751912D3617610097FE4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -42,9 +40,9 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7E0B38732D7FAACF00C508D9 /* VC */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VC; sourceTree = "<group>"; };
-		7E3FB8F32D6FF6EB00CD0B79 /* YahooAPI */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = YahooAPI; sourceTree = "<group>"; };
 		7E499EFA2D7923140066AF6F /* Extensions */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Extensions; sourceTree = "<group>"; };
 		7E499F132D792E260066AF6F /* Common */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Common; sourceTree = "<group>"; };
+		7E5454C42D8A63AF00DE9745 /* API */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = API; sourceTree = "<group>"; };
 		7E5DD76A2D815B790066D4A4 /* NetworkService */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = NetworkService; sourceTree = "<group>"; };
 		7EF8D5CB2D77D7B10029609F /* VM */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VM; sourceTree = "<group>"; };
 		7EF8D5D02D77D86E0029609F /* VIEW */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VIEW; sourceTree = "<group>"; };
@@ -93,16 +91,15 @@
 		7E1751842D36175D0097FE4A /* stockStalker */ = {
 			isa = PBXGroup;
 			children = (
+				7E5454C42D8A63AF00DE9745 /* API */,
 				7E5DD76A2D815B790066D4A4 /* NetworkService */,
 				7E0B38732D7FAACF00C508D9 /* VC */,
 				7E499F132D792E260066AF6F /* Common */,
 				7E499EFA2D7923140066AF6F /* Extensions */,
 				7EF8D5D02D77D86E0029609F /* VIEW */,
 				7EF8D5CB2D77D7B10029609F /* VM */,
-				7E3FB8F32D6FF6EB00CD0B79 /* YahooAPI */,
 				7E1751852D36175D0097FE4A /* AppDelegate.swift */,
 				7E1751872D36175D0097FE4A /* SceneDelegate.swift */,
-				7E1751892D36175D0097FE4A /* ViewController.swift */,
 				7E17518B2D36175D0097FE4A /* Main.storyboard */,
 				7E17518E2D3617610097FE4A /* Assets.xcassets */,
 				7E1751902D3617610097FE4A /* LaunchScreen.storyboard */,
@@ -128,9 +125,9 @@
 			);
 			fileSystemSynchronizedGroups = (
 				7E0B38732D7FAACF00C508D9 /* VC */,
-				7E3FB8F32D6FF6EB00CD0B79 /* YahooAPI */,
 				7E499EFA2D7923140066AF6F /* Extensions */,
 				7E499F132D792E260066AF6F /* Common */,
+				7E5454C42D8A63AF00DE9745 /* API */,
 				7E5DD76A2D815B790066D4A4 /* NetworkService */,
 				7EF8D5CB2D77D7B10029609F /* VM */,
 				7EF8D5D02D77D86E0029609F /* VIEW */,
@@ -230,7 +227,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E17518A2D36175D0097FE4A /* ViewController.swift in Sources */,
 				7E1751862D36175D0097FE4A /* AppDelegate.swift in Sources */,
 				7E1751882D36175D0097FE4A /* SceneDelegate.swift in Sources */,
 			);
