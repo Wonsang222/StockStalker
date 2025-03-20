@@ -41,7 +41,6 @@ final class MoneyRateVC: UIViewController, StoryboardView {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        
     }
     
     private func configureUI() {
@@ -51,7 +50,28 @@ final class MoneyRateVC: UIViewController, StoryboardView {
     
     func bind(reactor: MoneyRateViewModel) {
         
+        _chartView.rx.segment
+            .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
+            .map { YahooServices(rawValue: $0)! }
+            .map { Reactor.Action.tapBtn($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
+        
+        
+        reactor.pulse(\.$date)
+            .compactMap {$0}
+            .bind(to: timeLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        reactor.pulse(\.$isLoading)
+            .bind(to: _chartView.rx.isLoading)
+            .disposed(by: disposeBag)
+        
+        reactor.pulse(\.$rates)
+            .compactMap {$0}
+            .bind(to: _chartView.rx.drawChart)
+            .disposed(by: disposeBag)
         
         reactor.pulse(\.$error)
             .compactMap {$0}

@@ -10,10 +10,12 @@ import Foundation
 struct ChartEntities {
     let chart: [ChartEntity]
     let interval: String
+    let standardTime: Int
     
     init(
         chart: [ChartEntity],
         interval: String,
+        standardTime: Int,
         errorMsg: String?
     ) throws {
         if errorMsg != nil {
@@ -21,6 +23,7 @@ struct ChartEntities {
         }
         
         self.interval = interval
+        self.standardTime = standardTime
         self.chart = chart
     }
 }

@@ -8,10 +8,10 @@
 import Foundation
 
 struct ErrorHandler {
-    let message: Error
+    let message: String
     let completion: (() -> Void)?
     
-    init(message: Error, completion: (() -> Void)? = nil) {
+    init(message: String, completion: (() -> Void)? = nil) {
         self.message = message
         self.completion = completion
     }

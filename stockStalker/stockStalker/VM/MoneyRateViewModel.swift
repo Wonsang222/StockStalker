@@ -13,6 +13,13 @@ import Foundation
 
 final class MoneyRateViewModel: Reactor {
     private let _networkService: RxDataTransferWrapperType
+    private let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        let kstTimeZone = TimeZone(identifier: "Asia/Seoul") ?? TimeZone(secondsFromGMT: 9 * 3600)!
+        formatter.dateFormat = "yy-MM-dd HH:mm" 
+        formatter.timeZone = kstTimeZone
+        return formatter
+    }()
     
     init(_networkService: RxDataTransferWrapperType) {
         self._networkService = _networkService
@@ -33,7 +40,7 @@ final class MoneyRateViewModel: Reactor {
         @Pulse var rates: ChartEntities?
         @Pulse var error: ErrorHandler?
         @Pulse var isLoading: Bool = false
-        @Pulse var date: Date? = nil
+        @Pulse var date: String? = nil
     }
     
     let initialState: State = State()
@@ -58,6 +65,7 @@ final class MoneyRateViewModel: Reactor {
         switch mutation {
         case .fetchFinancialInfo(let entities):
             state.rates = entities
+//            state.date = formatter.convertUNIXStamp(entities.standardTime)
         case .setAlertMessage(let errorHandler):
             state.error = errorHandler
         case .setLoading(let bool):
@@ -79,7 +87,7 @@ extension MoneyRateViewModel {
             if case .cancellation = networkError {
                 return Observable.empty()
             } else {
-                let handler = ErrorHandler(message: networkError)
+                let handler = ErrorHandler(message: networkError.message)
                 return Observable.just(.setAlertMessage(handler))
             }
         }
@@ -95,3 +103,4 @@ extension MoneyRateViewModel.Action {
         return false
     }
 }
+

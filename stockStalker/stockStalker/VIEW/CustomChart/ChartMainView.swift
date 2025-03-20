@@ -11,7 +11,7 @@ import SwiftUI
 final class ChartMainView: UIView {
     
     private enum Metric {
-        static let baseInset: CGFloat = 8
+        static let baseInset: CGFloat = 20
     }
     
     private var chartEntities: ChartEntities? = nil {
@@ -21,8 +21,6 @@ final class ChartMainView: UIView {
     }
     
     private let _chart: ChartView = ChartView(frame: .zero)
-    private let container = UIView(frame: .zero)
-    private let _sideView: ChartSideView = ChartSideView(frame: .zero)
         
     private let _segment: UISegmentedControl = {
         let titles = YahooServices.allCases.map { $0.rawValue }
@@ -51,35 +49,21 @@ final class ChartMainView: UIView {
     
     private func configureData() {
         self._chart.setEntities(self.chartEntities)
-        self._sideView.setEntities(self.chartEntities)
     }
     
     private func configureUI() {
-        self.safeAddSubView(container)
         self.safeAddSubView(_segment)
-        self.safeAddSubView(_sideView)
         self.safeAddSubView(_chart)
         
         NSLayoutConstraint.activate([
             _segment.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             _segment.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             _segment.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-                        
-            _sideView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Metric.baseInset),
-            _sideView.topAnchor.constraint(equalTo: self.topAnchor),
-            _sideView.bottomAnchor.constraint(equalTo: _chart.bottomAnchor),
-            _sideView.leadingAnchor.constraint(equalTo: _chart.trailingAnchor, constant: Metric.baseInset),
             
-            container.trailingAnchor.constraint(equalTo: _sideView.leadingAnchor),
-            container.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            container.topAnchor.constraint(equalTo: self.topAnchor, constant: Metric.baseInset),
-            container.bottomAnchor.constraint(equalTo: _segment.topAnchor, constant: -Metric.baseInset),
-            
-            _chart.topAnchor.constraint(equalTo: container.topAnchor, constant: Metric.baseInset),
-            _chart.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -Metric.baseInset),
-            _chart.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: Metric.baseInset),
-            _chart.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -Metric.baseInset)
-            
+            _chart.topAnchor.constraint(equalTo: self.topAnchor, constant: Metric.baseInset),
+            _chart.bottomAnchor.constraint(equalTo: _segment.topAnchor, constant: -Metric.baseInset),
+            _chart.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Metric.baseInset),
+            _chart.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Metric.baseInset)
         ])
     }
 }

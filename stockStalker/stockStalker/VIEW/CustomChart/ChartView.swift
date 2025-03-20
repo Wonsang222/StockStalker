@@ -8,10 +8,16 @@
 import UIKit
 import AVFoundation
 
+// Model 만들것 -> tuple x
+// chartEntities를 몰라야한다.
+
 final class ChartView: UIView {
     
     private var _infoView: UIView?
+    private let circleTag = 99
     private let _beizierPath = UIBezierPath()
+    private var maxMinYTuple: (CGFloat?, CGFloat, CGFloat?, CGFloat) = (nil,0,nil,0)
+    
     private let _formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -82,6 +88,9 @@ final class ChartView: UIView {
             return (max,min)
         }
         
+        maxMinYTuple.1 = maxminY.0
+        maxMinYTuple.3 = maxminY.1
+        
         let maxY = maxminY.0
         let minY = maxminY.1
         let range = maxY - minY
@@ -93,19 +102,84 @@ final class ChartView: UIView {
         _rates.forEach {
             let spotY = $0 - minY
             let yLocation = height * (1 - (spotY / range))
+            
+            // 최대값  ( point, rate ) -> 갱신
+            if spotY == range {
+                print("spotY is maximum")
+                maxMinYTuple.0 = yLocation
+            }
+            // 최소값 -> 가장 처음에 들어오는 최소값만 사용
+            if spotY == 0 {
+                print("spotY is minimum")
+                if maxMinYTuple.2 == nil {
+                    maxMinYTuple.2 = yLocation
+                }
+            }
+            
             positionY.append(yLocation)
         }
         return positionY
     }
     
+    private func drawDot() {
+        
+        let maxPoint = maxMinYTuple.0
+        let minPoint = maxMinYTuple.2
+        
+        // 최대값 은 가장 최신의 값만 사용
+        for location in locations.reversed() {
+            let circleLayer = TaggedLayer(tag: circleTag)
+            let circlePath = UIBezierPath()
+            if location.y == maxPoint {
+                circlePath.addArc(withCenter: CGPoint(x: location.x,
+                                                      y: maxPoint!),
+                                                      radius: 3,
+                                                      startAngle: 0,
+                                                      endAngle: .pi * 2,
+                                                      clockwise: true)
+                circleLayer.path = circlePath.cgPath
+                circleLayer.lineWidth = 2
+                circleLayer.strokeColor = UIColor.clear.cgColor
+                circleLayer.fillColor = UIColor.blue.cgColor
+                self.layer.addSublayer(circleLayer)
+                break
+            }
+        }
+        
+        // 최소값은 가장 늦은 값을 사용
+        for location in locations {
+            let circleLayer = TaggedLayer(tag: circleTag)
+            let circlePath = UIBezierPath()
+            if location.y == minPoint {
+                print("in2")
+                circlePath.addArc(withCenter: CGPoint(x: location.x,
+                                                      y: minPoint! - 5),
+                                                      radius: 3,
+                                                      startAngle: 0,
+                                                      endAngle: .pi * 2,
+                                                      clockwise: true)
+                circleLayer.path = circlePath.cgPath
+                circleLayer.lineWidth = 2
+                circleLayer.strokeColor = UIColor.clear.cgColor
+                circleLayer.fillColor = UIColor.blue.cgColor
+                self.layer.addSublayer(circleLayer)
+                break
+            }
+        }
+    }
+    
     override func draw(_ rect: CGRect) {
         guard !_rates.isEmpty else { return }
         let tag  = 100
+       
         removeExistingLayer(tagNum: tag)
+        removeExistingLayer(tagNum: circleTag)
         
         let taggedLayer = TaggedLayer(tag: tag)
+
         let positionY = calculateLocationY(rect: rect)
         let positionX = calculateLocationX(rect: rect)
+      
         
         zip(positionX, positionY).forEach { locations.append(CGPoint(x: $0, y: $1)) }
         
@@ -128,12 +202,11 @@ final class ChartView: UIView {
         taggedLayer.fillColor = UIColor.clear.cgColor
         
         self.layer.addSublayer(taggedLayer)
+        drawDot()
     }
     
     private func convertDate(_ interval: Int) -> String {
-        let interval = TimeInterval(truncating: interval as NSNumber)
-        let date = Date(timeIntervalSince1970: interval)
-        return _formatter.string(from: date)
+        return _formatter.convertUNIXStamp(interval)
     }
 }
 

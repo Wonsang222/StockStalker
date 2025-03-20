@@ -9,11 +9,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-extension Reactive where Base: UIViewController {
+extension Reactive where Base: MoneyRateVC {
     
     var error: Binder<ErrorHandler> {
         return Binder(base) { vc, err in
-            vc.showError(message: err.message.localizedDescription, completion: err.completion)
+            vc.showError(message: err.message, completion: err.completion)
         }
     }
     

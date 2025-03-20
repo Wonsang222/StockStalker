@@ -27,6 +27,7 @@ extension ChartResponseDTO {
     
     struct MetaDTO: Decodable {
         let range: String
+        let regularMarketTime: Int
     }
     
     struct IndicatorsDTO: Decodable {
@@ -62,6 +63,7 @@ extension ChartResponseDTO {
         let data = try results.toDomain()
         return try ChartEntities(chart: data,
                                  interval: results.meta.range,
+                                 standardTime: results.meta.regularMarketTime,
                                  errorMsg: chart.error)
     }
 }
