@@ -9,6 +9,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import ReactorKit
+import SwiftUI
 
 final class MoneyRateVC: UIViewController, StoryboardView {
     
@@ -79,3 +80,16 @@ final class MoneyRateVC: UIViewController, StoryboardView {
             .disposed(by: disposeBag)
     }
 }
+
+#if DEBUG
+struct Preview: PreviewProvider {
+    
+    static var previews: some View {
+        UIViewControllerPreview {
+            return MoneyRateVC()
+        }
+    }
+}
+
+#endif
+

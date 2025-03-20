@@ -105,12 +105,10 @@ final class ChartView: UIView {
             
             // 최대값  ( point, rate ) -> 갱신
             if spotY == range {
-                print("spotY is maximum")
                 maxMinYTuple.0 = yLocation
             }
             // 최소값 -> 가장 처음에 들어오는 최소값만 사용
             if spotY == 0 {
-                print("spotY is minimum")
                 if maxMinYTuple.2 == nil {
                     maxMinYTuple.2 = yLocation
                 }
@@ -151,7 +149,6 @@ final class ChartView: UIView {
             let circleLayer = TaggedLayer(tag: circleTag)
             let circlePath = UIBezierPath()
             if location.y == minPoint {
-                print("in2")
                 circlePath.addArc(withCenter: CGPoint(x: location.x,
                                                       y: minPoint! - 5),
                                                       radius: 3,

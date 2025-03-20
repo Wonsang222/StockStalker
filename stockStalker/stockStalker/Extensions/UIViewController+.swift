@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 extension UIViewController {
     
@@ -38,4 +39,18 @@ extension UIViewController {
             }
         }
     }
+}
+
+struct UIViewControllerPreview<T: UIViewController>: UIViewControllerRepresentable {
+    let vc: T
+    
+    init(_ builder: @escaping () -> T) {
+        vc = builder()
+    }
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        return vc
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {    }
 }
