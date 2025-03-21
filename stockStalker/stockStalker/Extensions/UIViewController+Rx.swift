@@ -11,6 +11,11 @@ import RxCocoa
 
 extension Reactive where Base: MoneyRateVC {
     
+    var viewWillAppear: Observable<Bool> {
+        return methodInvoked(#selector(Base.viewWillAppear(_:)))
+            .map { $0.first as? Bool ?? false }
+    }
+    
     var error: Binder<ErrorHandler> {
         return Binder(base) { vc, err in
             vc.showError(message: err.message, completion: err.completion)

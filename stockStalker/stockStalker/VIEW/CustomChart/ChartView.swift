@@ -24,6 +24,7 @@ final class ChartView: UIView {
         return formatter
     }()
     
+    // 비즈니스 로직
     private var _chartInfo: ChartEntities? {
         didSet {
             guard let _entities = _chartInfo else { return }

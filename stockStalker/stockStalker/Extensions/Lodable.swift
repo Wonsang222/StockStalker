@@ -14,7 +14,7 @@ extension Loadable where Self: ChartMainView {
     func showActivityIndicator() {
         
         for subview in subviews {
-            if let indicator = subview as? UIActivityIndicatorView {
+            if let _ = subview as? UIActivityIndicatorView {
                 return
             }
         }

@@ -12,6 +12,8 @@
 		7E17518D2D36175D0097FE4A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E17518B2D36175D0097FE4A /* Main.storyboard */; };
 		7E17518F2D3617610097FE4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E17518E2D3617610097FE4A /* Assets.xcassets */; };
 		7E1751922D3617610097FE4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1751902D3617610097FE4A /* LaunchScreen.storyboard */; };
+		7E5793E02D8CEF6B005A48FF /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5793DE2D8CEF64005A48FF /* WebKit.framework */; };
+		7E5794362D8CF116005A48FF /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5794352D8CF116005A48FF /* WebKit.framework */; };
 		7EF3280A2D6D449B0050820B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7EF328092D6D449B0050820B /* RxCocoa */; };
 		7EF3280C2D6D449B0050820B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7EF3280B2D6D449B0050820B /* RxSwift */; };
 		7EF3280F2D6D44B80050820B /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7EF3280E2D6D44B80050820B /* ReactorKit */; };
@@ -35,6 +37,8 @@
 		7E17518E2D3617610097FE4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E1751912D3617610097FE4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7E1751932D3617610097FE4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E5793DE2D8CEF64005A48FF /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		7E5794352D8CF116005A48FF /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/PrivateFrameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		C15302FE2D7B470000CE9459 /* stockStalkerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = stockStalkerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -56,6 +60,7 @@
 			files = (
 				7EF3280C2D6D449B0050820B /* RxSwift in Frameworks */,
 				7EF3280F2D6D44B80050820B /* ReactorKit in Frameworks */,
+				7E5793E02D8CEF6B005A48FF /* WebKit.framework in Frameworks */,
 				7EF3280A2D6D449B0050820B /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E5794362D8CF116005A48FF /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +81,7 @@
 			children = (
 				7E1751842D36175D0097FE4A /* stockStalker */,
 				C15302FF2D7B470000CE9459 /* stockStalkerTests */,
+				7E5793DD2D8CEF64005A48FF /* Frameworks */,
 				7E1751832D36175D0097FE4A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -106,6 +113,15 @@
 				7E1751932D3617610097FE4A /* Info.plist */,
 			);
 			path = stockStalker;
+			sourceTree = "<group>";
+		};
+		7E5793DD2D8CEF64005A48FF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7E5794352D8CF116005A48FF /* WebKit.framework */,
+				7E5793DE2D8CEF64005A48FF /* WebKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,9 +482,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = wonsangHwnag.stockStalkerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/stockStalker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/stockStalker";
 			};
 			name = Debug;
@@ -485,9 +505,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = wonsangHwnag.stockStalkerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/stockStalker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/stockStalker";
 			};
 			name = Release;

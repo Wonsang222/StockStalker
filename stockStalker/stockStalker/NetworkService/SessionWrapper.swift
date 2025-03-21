@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import WebKit
 
 // cache policy  -> config or request or both?  == request looks more flexible
 
@@ -176,6 +177,33 @@ final class DefaultAsyncSessionManager: AsyncSessionManager {
         return try await URLSession(configuration: config).data(for: req)
     }
 }
+
+final class WKWebViewSessionManager {
+    private let _wkWebView = WKWebView(frame: .zero)
+    
+    func fetchHTML(req: URLRequest, completion: @escaping(Data) -> Void) {
+        DispatchQueue.main.async { [unowned self] in
+            let fetcher = "window.fetch('https://naver.com')"
+            _wkWebView.evaluateJavaScript(fetcher) { result, error in
+                print(result as! String)
+            }
+        }
+    }
+}
+
+//final class WebviewSessionManager: AsyncSessionManager {
+//    func request(req: URLRequest, config: URLSessionConfiguration) async throws -> (Data, URLResponse) {
+//        let wv = await WKWebView(frame: .zero)
+//        let url = req.url!.absoluteString
+//        let script = """
+//        window.fetch()
+//        """
+//        
+//        /// data 전달
+//        try await wv.evaluateJavaScript(    )
+//        
+//    }
+//}
 
 final class DefaultAsyncNetworkService {
     

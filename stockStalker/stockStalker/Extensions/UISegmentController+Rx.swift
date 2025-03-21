@@ -11,8 +11,8 @@ import RxSwift
 
 extension Reactive where Base: UISegmentedControl {
     var action: ControlProperty<String> {
-        return base.rx.controlProperty(editingEvents: .allEditingEvents) { segment in
-            return segment.actionForSegment(at: segment.selectedSegmentIndex)!.title
+        return base.rx.controlProperty(editingEvents: .valueChanged) { segment in
+            return base.titleForSegment(at: base.selectedSegmentIndex)!
         } setter: { _, _ in}
     }
 }
