@@ -181,29 +181,29 @@ final class DefaultAsyncSessionManager: AsyncSessionManager {
 final class WKWebViewSessionManager {
     private let _wkWebView = WKWebView(frame: .zero)
     
-    func fetchHTML(req: URLRequest, completion: @escaping(Data) -> Void) {
+    func fetchHTML(req: URLRequest, completion: @escaping (Result<Data, NetworkError>) -> Void) {
         DispatchQueue.main.async { [unowned self] in
-            let fetcher = "window.fetch('https://naver.com')"
+            let fetcher = """
+            
+            (function () {
+                const time = document.querySelector('H2.titH3').textContent
+                const result = document.querySelector('ul.exchangeList').outerHTML
+                return time + result
+            })()
+            """
             _wkWebView.evaluateJavaScript(fetcher) { result, error in
-                print(result as! String)
+                
+                if error != nil {
+                    completion(.failure(.dataParse))
+                }
+
+                if let resultString = result as? String {
+                    completion(.success(resultString.data(using: .utf8)!))
+                }
             }
         }
     }
 }
-
-//final class WebviewSessionManager: AsyncSessionManager {
-//    func request(req: URLRequest, config: URLSessionConfiguration) async throws -> (Data, URLResponse) {
-//        let wv = await WKWebView(frame: .zero)
-//        let url = req.url!.absoluteString
-//        let script = """
-//        window.fetch()
-//        """
-//        
-//        /// data 전달
-//        try await wv.evaluateJavaScript(    )
-//        
-//    }
-//}
 
 final class DefaultAsyncNetworkService {
     

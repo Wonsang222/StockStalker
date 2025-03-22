@@ -14,8 +14,6 @@ import WebKit
 
 final class MoneyRateVC: UIViewController, StoryboardView {
     
-    let bb = WKWebViewSessionManager1()
-    
     // MARK: - Current Rate
 
     @IBOutlet weak var nationalFlagLabel: UILabel!
@@ -65,7 +63,6 @@ final class MoneyRateVC: UIViewController, StoryboardView {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         configureUI()
-        test()
     }
     
     func bind(reactor: MoneyRateViewModel) {
@@ -108,37 +105,3 @@ final class MoneyRateVC: UIViewController, StoryboardView {
 //    var hanaBankViews: Binder<>
 //}
 
-extension MoneyRateVC {
-    func test() {
-       
-        bb.req()
-    }
-}
-
-
-    final class WKWebViewSessionManager1 {
-        private let _wkWebView = WKWebView(frame: .zero)
-        
-        func req() {
-            let url = "https://www.naver.com"
-            let urla = URL(string: url)!
-            let req = URLRequest(url: urla)
-            _wkWebView.load(req)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-                self!.fetchHTML()
-                    }
-        }
-        
-        func fetchHTML() {
-            DispatchQueue.main.async { [unowned self] in
-                let fetcher = """
-                return 5;
-                """
-                _wkWebView.evaluateJavaScript(fetcher) { result, error in
-                    print(result)
-                    print(error)
-                }
-            }
-        }
-}

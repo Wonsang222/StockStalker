@@ -8,7 +8,7 @@
 import XCTest
 import WebKit
 
-class HanaBankResponseTest: XCTestCase {
+class CitiBankResponseTest: XCTestCase {
     
     
     
