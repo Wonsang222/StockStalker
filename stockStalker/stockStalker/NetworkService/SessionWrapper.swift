@@ -195,6 +195,7 @@ final class WKWebViewSessionManager {
                 
                 if error != nil {
                     completion(.failure(.dataParse))
+                    return
                 }
 
                 if let resultString = result as? String {
@@ -267,8 +268,8 @@ final class AsyncDataTransferServiceImplementaion {
             return successData
         } catch {
             throw NetworkError.dataParse
-        }
-    }
+        }    }
+    
 }
 
 extension AsyncDataTransferServiceImplementaion: AsyncDataTransferService {
