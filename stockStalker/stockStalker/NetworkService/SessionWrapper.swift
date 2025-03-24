@@ -196,52 +196,66 @@ final class WKWebViewSessionManager: NSObject, WKNavigationDelegate {
             
             let fetcher = """
             (function () {
-            
                 const infoObj = {
-                info : []
-            };
-                
+                    info: []
+                };
+
+                // 시간 정보 가져오기
                 const time = document.querySelector('span.small').textContent;
-
-                const standardRate = 
-                
-                const countries = 
-                const sellBuy = Array.from(document.querySelector('.exchangeList').querySelectorAll('li'))
-            
-            
-                const rere = info.map ((i) => {
-            
-                    const obj = {};
-                    obj['standardRate'] = i.querySelector('.green').textContent;
-                    obj['country'] = i.querySelector('.unit').textContent;
-                    const spans = i.querySelectorAll('ul');
-                    spans.forEach((span) => { 
-                    const vv = span.querySelectorAll('span')
-                    vv.forEach((as) => {
-                        if (as.textContent === '현찰 살 때') {
-                        
-                    }
-
-                        if (as.textContent === '현찰 팔 때') {
-                        console.log(5)
-                    }
-            
-            
-                    })
-             
-                    })
-                    return obj;
-                })
-                
-            
-
-                
-            
                 infoObj['time'] = time;
-                
-                
+
+                // 현재 환율 값 가져오기
+                const current = Array.from(document.querySelectorAll('.green')).map((v) => v.textContent);
+
+                // 상승/하락 값 가져오기
+                const updown = Array.from(document.querySelectorAll('.exchangeList li'))
+                    .filter(v => v.querySelector('div.tit'))
+                    .map((v) => {
+                        if (v.querySelector('span.icoIncrease')) {
+                            return v.querySelector('span.icoIncrease').textContent;
+                        }
+                        if (v.querySelector('span.icoDecrease')) {
+                            return v.querySelector('span.icoDecrease').textContent;
+                        }
+                        return null; 
+                    });
+
+                // 국가 정보 가져오기
+                const countries = Array.from(document.querySelector('.exchangeList').querySelectorAll('div.tit'))
+                    .map((v) => v.querySelector('div span').textContent);
+
+                // 현찰 살 때/팔 때 값 가져오기
+                const sell = [];
+                const buy = [];
+                Array.from(document.querySelector('.exchangeList').querySelectorAll('li ul li')).forEach((v) => {
+                    if (v.querySelector('span').textContent === '현찰 살 때') {
+                        buy.push(v.querySelector('em').textContent);
+                    }
+                    if (v.querySelector('span').textContent === '현찰 팔 때') {
+                        sell.push(v.querySelector('em').textContent);
+                    }
+                });
+
+                for (let i = 0; i < countries.length; i++) {
+                    const obj = {};
+
+                    const currentSell = sell[i];
+                    const currentBuy = buy[i];
+                    const currentUpdown = updown[i];
+                    const currentPrice = current[i];
+                    const country = countries[i];
+
+                    obj['country'] = country;
+                    obj['buy'] = currentBuy;
+                    obj['sell'] = currentSell;
+                    obj['updown'] = currentUpdown;
+                    obj['currentRate'] = currentPrice;
+
+                    infoObj['info'].push(obj);
+                }
+
                 return infoObj;
-            })()
+            })();
             """
             self._wkWebView.evaluateJavaScript(fetcher) { result, error in
                 

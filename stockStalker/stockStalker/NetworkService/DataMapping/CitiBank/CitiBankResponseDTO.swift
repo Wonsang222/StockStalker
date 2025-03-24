@@ -17,4 +17,6 @@ struct CitiBankInfo  {
     let currentRate: String
     let buy: String
     let sell: String
+    
+    var updown: String?
 }
