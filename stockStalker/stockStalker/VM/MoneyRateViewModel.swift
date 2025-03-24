@@ -65,7 +65,6 @@ final class MoneyRateViewModel: Reactor {
         switch mutation {
         case .fetchFinancialInfo(let entities):
             state.rates = entities
-//            state.date = formatter.convertUNIXStamp(entities.standardTime)
         case .setAlertMessage(let errorHandler):
             state.error = errorHandler
         case .setLoading(let bool):
@@ -80,6 +79,12 @@ extension MoneyRateViewModel {
         let requestDTO = YahooRequestDTO(interval: yahoo.getInterval, range: yahoo.getRange)
         let endPoint = APIEndpoints.getYahoo(with: requestDTO)
         return endPoint
+    }
+    
+    private func convertToEndpoint(with country: CitiBankAPI.Countries = .USD) -> EndPoint<CitiBankResponseDTO> {
+        let requestDTO = CitiBankRequestDTO(country: country)
+        let endPoiint = APIEndpoints.getCitiBank(with: requestDTO)
+        return endPoiint
     }
     
     private func createErrorHandler(with error: any Error) -> Observable<Mutation> {

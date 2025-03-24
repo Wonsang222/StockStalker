@@ -15,4 +15,12 @@ struct APIEndpoints {
                         header: ["UserAgent" : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"],
                         responseDecoder: EntitiyTypeResponseDecoder())
     }
+    
+    static func getCitiBank(with dto: CitiBankRequestDTO) -> EndPoint<CitiBankResponseDTO> {
+        return EndPoint(path: nil,
+                        method: .get,
+                        queryEncodable: nil,
+                        header: [:],
+                        responseDecoder: EntitiyTypeResponseDecoder())
+    }
 }

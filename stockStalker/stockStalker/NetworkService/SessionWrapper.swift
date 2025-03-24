@@ -254,7 +254,7 @@ final class WKWebViewSessionManager: NSObject, WKNavigationDelegate {
                     infoObj['info'].push(obj);
                 }
 
-                return infoObj;
+                return JSON.stringfy(infoObj);
             })();
             """
             self._wkWebView.evaluateJavaScript(fetcher) { result, error in
