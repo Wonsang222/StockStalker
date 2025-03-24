@@ -178,30 +178,89 @@ final class DefaultAsyncSessionManager: AsyncSessionManager {
     }
 }
 
-final class WKWebViewSessionManager {
-    private let _wkWebView = WKWebView(frame: .zero)
+final class WKWebViewSessionManager: NSObject, WKNavigationDelegate {
     
-    func fetchHTML(req: URLRequest, completion: @escaping (Result<Data, NetworkError>) -> Void) {
-        DispatchQueue.main.async { [unowned self] in
-            let fetcher = """
+    private let _wkWebView = WKWebView(frame: .zero)
+    private var handler: ((Result<Data, NetworkError>) -> Void)?
+
+    override init() {
+        super.init()
+        _wkWebView.navigationDelegate = self
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        
+        guard let handler = handler else { return }
+        
+        DispatchQueue.main.async {
             
+            let fetcher = """
             (function () {
-                const time = document.querySelector('H2.titH3').textContent
-                const result = document.querySelector('ul.exchangeList').outerHTML
-                return time + result
+            
+                const infoObj = {
+                info : []
+            };
+                
+                const time = document.querySelector('span.small').textContent;
+
+                const standardRate = 
+                
+                const countries = 
+                const sellBuy = Array.from(document.querySelector('.exchangeList').querySelectorAll('li'))
+            
+            
+                const rere = info.map ((i) => {
+            
+                    const obj = {};
+                    obj['standardRate'] = i.querySelector('.green').textContent;
+                    obj['country'] = i.querySelector('.unit').textContent;
+                    const spans = i.querySelectorAll('ul');
+                    spans.forEach((span) => { 
+                    const vv = span.querySelectorAll('span')
+                    vv.forEach((as) => {
+                        if (as.textContent === '현찰 살 때') {
+                        
+                    }
+
+                        if (as.textContent === '현찰 팔 때') {
+                        console.log(5)
+                    }
+            
+            
+                    })
+             
+                    })
+                    return obj;
+                })
+                
+            
+
+                
+            
+                infoObj['time'] = time;
+                
+                
+                return infoObj;
             })()
             """
-            _wkWebView.evaluateJavaScript(fetcher) { result, error in
+            self._wkWebView.evaluateJavaScript(fetcher) { result, error in
                 
                 if error != nil {
-                    completion(.failure(.dataParse))
+                    handler(.failure(.dataParse))
                     return
                 }
 
                 if let resultString = result as? String {
-                    completion(.success(resultString.data(using: .utf8)!))
+                    handler(.success(resultString.data(using: .utf8)!))
                 }
             }
+        }
+    }
+    
+    func fetchHTML(req: URLRequest, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+        DispatchQueue.main.async {
+            self.handler = completion
+            self._wkWebView.load(req)
         }
     }
 }

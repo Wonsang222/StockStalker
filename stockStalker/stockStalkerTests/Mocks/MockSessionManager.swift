@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import WebKit
 @testable import stockStalker
 
-//class MockSessionManager: AsyncSessionManager {
-//    func request(req: URLRequest, config: URLSessionConfiguration) async throws -> (Data, URLResponse) {
-//        let wv = await WKWebView(frame: .zero)
-//        try await wv.evaluateJavaScript(<#T##javaScriptString: String##String#>)
-//    }
-//}
+final class MockSessionManager: AsyncSessionManager {
+    
+    func request(req: URLRequest, config: URLSessionConfiguration) async throws -> (Data, URLResponse) {
+        
+        return (CitiBankResponseStub.getRetunString(), URLResponse())
+    }
+}

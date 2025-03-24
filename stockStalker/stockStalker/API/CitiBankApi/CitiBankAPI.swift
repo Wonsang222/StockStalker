@@ -12,5 +12,7 @@ enum CitiBankAPI {
     
     enum Countries: String {
         case USD = "USD"
+        case JPN = "JPN"
+        case EUR = "EUR"
     }
 }

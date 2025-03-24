@@ -10,7 +10,7 @@ import XCTest
 
 final class EndpointTest: XCTestCase {
     
-    
+
     
     override func setUp() async throws {
         
