@@ -46,7 +46,7 @@ struct CitiBankEntity {
         self.sell = sell
         
         if let updown = updown {
-            var updownRawString = convertUpdownString(target: updown)
+            let updownRawString = convertUpdownString(target: updown)
             if updownRawString.hasPrefix("-") {
                 updownIcon = UpDown.Down.getIcon
                 let dropFirst = updownRawString.dropFirst()

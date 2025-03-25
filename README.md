@@ -8,6 +8,8 @@
 
 - Swift Concurrency : 네트워크 통신을 Async/Await 을 사용해 작성하며 에러처리, 네트워크 레이어 구성을 고민했고, 이를 Rx로 Wrapping 해서 사용했습니다.
 
+- 웹 크롤링 : 라이브러리를 사용하지 않고, WKWebView로 직접 페이지에서 해당 데이터를 가지고 옵니다.
+
 - 테스트 : 각 레이어마다 의존성 주입(DI)를 사용하여 Testable한 코드를 작성했습니다.
 
 - UIBeizierPath : 차트 라이브러리를 사용하지 않고, 앱에서 사용되는 차트를 직접 작성했습니다. 레퍼런스는 토스 주식 탭에 사용된 차트입니다.
@@ -18,8 +20,100 @@
 
 ---
 
-# 앱의 구성
+# 앱의구성
 
 ## 차트
 
-## 하나은행 웹 크롤링
+## 시티은행 웹 크롤링
+
+```   
+     해당 웹페이지로 이동 후, 로드가 완료되면, 해당 페이지의 태그를 자바스크립트로
+     필터링하여 데이터를 문자열로 반환합니다.
+
+   func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        
+        guard let handler = handler else { return }
+        
+        DispatchQueue.main.async {
+            
+            let fetcher = """
+            (function () {
+                const infoObj = {
+                    info: []
+                };
+            
+                // 시간 정보 가져오기
+                const time = document.querySelector('span.small').textContent;
+                infoObj['time'] = time;
+            
+                // 현재 환율 값 가져오기
+                const current = Array.from(document.querySelectorAll('.green')).map((v) => v.textContent);
+            
+                // 상승/하락 값 가져오기
+                const updown = Array.from(document.querySelectorAll('.exchangeList li'))
+                    .filter(v => v.querySelector('div.tit'))
+                    .map((v) => {
+                        if (v.querySelector('span.icoIncrease')) {
+                            return v.querySelector('span.icoIncrease').textContent;
+                        }
+                        if (v.querySelector('span.icoDecrease')) {
+                            return v.querySelector('span.icoDecrease').textContent;
+                        }
+                        return null; 
+                    });
+            
+                // 국가 정보 가져오기
+                const countries = Array.from(document.querySelector('.exchangeList').querySelectorAll('div.tit'))
+                    .map((v) => v.querySelector('div span').textContent);
+            
+                // 현찰 살 때/팔 때 값 가져오기
+                const sell = [];
+                const buy = [];
+                Array.from(document.querySelector('.exchangeList').querySelectorAll('li ul li')).forEach((v) => {
+                    if (v.querySelector('span').textContent === '현찰 살 때') {
+                        buy.push(v.querySelector('em').textContent);
+                    }
+                    if (v.querySelector('span').textContent === '현찰 팔 때') {
+                        sell.push(v.querySelector('em').textContent);
+                    }
+                });
+            
+                for (let i = 0; i < countries.length; i++) {
+                    const obj = {};
+            
+                    const currentSell = sell[i];
+                    const currentBuy = buy[i];
+                    const currentUpdown = updown[i];
+                    const currentPrice = current[i];
+                    const country = countries[i];
+            
+                    obj['country'] = country;
+                    obj['buy'] = currentBuy;
+                    obj['sell'] = currentSell;
+                    obj['updown'] = currentUpdown;
+                    obj['currentRate'] = currentPrice;
+            
+                    infoObj['info'].push(obj);
+                }
+            
+                return JSON.stringify(infoObj);
+            })();
+            """
+            self._wkWebView.evaluateJavaScript(fetcher) { result, error in
+                
+                if error != nil {
+                    handler(.failure(.dataParse))
+                    return
+                }
+                
+                if let resultString = result as? String {
+                    handler(.success(resultString))
+                    
+                }
+            }
+        }
+    }
+}
+```
+
+
