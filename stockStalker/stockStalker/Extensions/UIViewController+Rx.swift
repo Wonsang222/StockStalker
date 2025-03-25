@@ -14,7 +14,7 @@ extension Reactive where Base: MoneyRateVC {
     var viewWillAppear: Observable<Void> {
         return methodInvoked(#selector(Base.viewWillAppear(_:)))
             .map { $0.first as? Bool ?? false }
-            .map { _ in  }
+            .mapToVoid()
     }
     
     var error: Binder<ErrorHandler> {
