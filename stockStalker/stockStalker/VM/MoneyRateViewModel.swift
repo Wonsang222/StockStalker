@@ -12,7 +12,10 @@ import Foundation
 // logger 추가
 
 final class MoneyRateViewModel: Reactor {
+    
     private let _networkService: RxDataTransferWrapperType
+    private let _webViewSession: RxDataTransferWrapperType
+    
     private let formatter: DateFormatter = {
         let formatter = DateFormatter()
         let kstTimeZone = TimeZone(identifier: "Asia/Seoul") ?? TimeZone(secondsFromGMT: 9 * 3600)!
@@ -21,17 +24,19 @@ final class MoneyRateViewModel: Reactor {
         return formatter
     }()
     
-    init(_networkService: RxDataTransferWrapperType) {
+    init(_networkService: RxDataTransferWrapperType, _webViewSession: RxDataTransferWrapperType) {
         self._networkService = _networkService
+        self._webViewSession = _webViewSession
     }
     
     enum Action {
         case tapBtn(YahooServices)
-//        case fetchHanaBankInfo
+        case fetchCitiBank
     }
     
     enum Mutation {
         case fetchFinancialInfo(ChartEntities)
+        case fetchCitiBankInfo(CitiBankEntity)
         case setLoading(Bool)
         case setAlertMessage(ErrorHandler)
     }
@@ -40,7 +45,7 @@ final class MoneyRateViewModel: Reactor {
         @Pulse var rates: ChartEntities?
         @Pulse var error: ErrorHandler?
         @Pulse var isLoading: Bool = false
-        @Pulse var date: String? = nil
+        @Pulse var citiBankInfo: CitiBankEntity?
     }
     
     let initialState: State = State()
@@ -48,7 +53,7 @@ final class MoneyRateViewModel: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .tapBtn(let yahooService):
-            Observable.concat([
+            return Observable.concat([
                 Observable.just(.setLoading(true)),
                 _networkService.request(convertToEndpoint(with: yahooService))
                     .map { try Mutation.fetchFinancialInfo($0.toDomain()) }
@@ -57,6 +62,10 @@ final class MoneyRateViewModel: Reactor {
                     .catch(self.createErrorHandler)
                 ,Observable.just(.setLoading(false))
             ])
+        case .fetchCitiBank:
+            return _webViewSession.request(convertToEndpoint())
+                .map { Mutation.fetchCitiBankInfo($0.toDomain(target: .USD)) }
+                .asObservable()
         }
     }   
     
@@ -65,6 +74,8 @@ final class MoneyRateViewModel: Reactor {
         switch mutation {
         case .fetchFinancialInfo(let entities):
             state.rates = entities
+        case .fetchCitiBankInfo(let entity):
+            state.citiBankInfo = entity
         case .setAlertMessage(let errorHandler):
             state.error = errorHandler
         case .setLoading(let bool):

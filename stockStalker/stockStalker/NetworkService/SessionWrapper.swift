@@ -33,7 +33,7 @@ final class LegacyNetworkSessionManagerWrapper: AsyncSessionManager {
                         }
                         let resp = HTTPURLResponse(url: URL(string: CitiBankAPI.url)!, statusCode: 200, httpVersion: nil, headerFields: nil)!
                         continuation.resume(returning: (data, resp))
-                    case .failure(let networkError):
+                    case .failure:
                         continuation.resume(throwing: NetworkError.dataParse)
                     }
                 }

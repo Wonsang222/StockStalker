@@ -61,9 +61,9 @@ final class MoneyRateVC: UIViewController, StoryboardView {
         // observable maptoVoid
         
         
-        reactor.pulse(\.$date)
+        reactor.pulse(\.$citiBankInfo)
             .compactMap {$0}
-            .bind(to: timeLabel.rx.text)
+            .bind(to: self.rx.citiBankApiHandler)
             .disposed(by: disposeBag)
         
         reactor.pulse(\.$isLoading)
