@@ -12,6 +12,6 @@ final class MockSessionManager: AsyncSessionManager {
     
     func request(req: URLRequest, config: URLSessionConfiguration) async throws -> (Data, URLResponse) {
         
-        return (CitiBankResponseStub.getRetunString(), URLResponse())
+        return (CitiBankResponseStub.getResultString().data(using: .utf8)!, URLResponse())
     }
 }

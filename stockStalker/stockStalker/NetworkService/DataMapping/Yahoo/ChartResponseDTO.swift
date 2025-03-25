@@ -49,7 +49,7 @@ extension ChartResponseDTO.ChartResultDTO {
         }
 
         var charEntities = [ChartEntity?]()
-        zip(timestamp, quoteRates).forEach{ charEntities.append(ChartEntity(timestamp: $0, rate: $1)) }
+        zip(timestamp, quoteRates).forEach { charEntities.append(ChartEntity(timestamp: $0, rate: $1)) }
         return charEntities.compactMap{ $0 }
     }
 }

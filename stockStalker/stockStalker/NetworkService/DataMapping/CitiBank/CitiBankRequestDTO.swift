@@ -2,7 +2,7 @@
 //  CitiBankRequestDto.swift
 //  stockStalker
 //
-//  Created by Wonsang HWang on 3/24/25.
+//  Created by Wonsang Hwang on 3/24/25.
 //
 
 import Foundation

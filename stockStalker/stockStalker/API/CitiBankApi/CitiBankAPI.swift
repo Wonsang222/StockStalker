@@ -11,8 +11,8 @@ enum CitiBankAPI {
     static let url = "https://www.citibank.co.kr/FxdExrt0100.act"
     
     enum Countries: String {
-        case USD = "USD"
-        case JPN = "JPN"
-        case EUR = "EUR"
+        case USD = "미국"
+        case JPN = "일본"
+        case EUR = "유럽"
     }
 }

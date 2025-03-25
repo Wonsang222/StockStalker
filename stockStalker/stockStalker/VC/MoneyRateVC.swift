@@ -12,25 +12,16 @@ import ReactorKit
 import SwiftUI
 
 final class MoneyRateVC: UIViewController, StoryboardView {
-    
     // MARK: - Current Rate
-
-    @IBOutlet weak var nationalFlagLabel: UILabel!
-    @IBOutlet weak var nationalCurrencyLabel: UILabel!
-    @IBOutlet weak var currentRateLabel: UILabel!
-    @IBOutlet weak var currentUpDown: UILabel!
-    @IBOutlet weak var currentRatio: UILabel!
-    @IBOutlet weak var currentPercent: UILabel!
+    
+    @IBOutlet weak var nationalFlag: UILabel!
+    @IBOutlet weak var currentRate: UILabel!
+    @IBOutlet weak var updownIcon: UILabel!
+    @IBOutlet weak var updownRate: UILabel!
     
     // MARK: - Time Standard
     @IBOutlet weak var timeLabel: UILabel!
-    
-    // MARK: - Time Standard
-    @IBOutlet weak var hanaBankRate: UILabel!
-    @IBOutlet weak var hanaBankUpDown: UILabel!
-    @IBOutlet weak var hanaBankRatio: UILabel!
-    @IBOutlet weak var hanaBankPercent: UILabel!
-    
+
     // MARK: - Time Standard
     @IBOutlet weak var sellLabel: UILabel!
     @IBOutlet weak var buyLabel: UILabel!
@@ -38,20 +29,12 @@ final class MoneyRateVC: UIViewController, StoryboardView {
     // MARK: - Graph
     @IBOutlet weak var chartContainer: UIView!
     private let _chartView = ChartMainView()
-    
-    private lazy var hanaAPIViews: [UIView] = [
-        sellLabel,
-        buyLabel,
-        hanaBankRate,
-        hanaBankUpDown,
-        hanaBankRatio,
-        hanaBankPercent
-    ]
-    
+
     var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     private func configureUI() {
@@ -65,7 +48,6 @@ final class MoneyRateVC: UIViewController, StoryboardView {
     }
     
     func bind(reactor: MoneyRateViewModel) {
-        
         // bind 타이밍 확인
         _chartView.rx.segment
             .throttle(.milliseconds(500), scheduler: MainScheduler.instance)
@@ -100,7 +82,16 @@ final class MoneyRateVC: UIViewController, StoryboardView {
     }
 }
 
-//fileprivate extension Reactive where Base: MoneyRateVC {
-//    var hanaBankViews: Binder<>
-//}
+fileprivate extension Reactive where Base: MoneyRateVC {
+    var citiBankApiHandler: Binder<CitiBankEntity> {
+        return Binder(base) { vc, entitiy in
+            vc.timeLabel.text = entitiy.date
+            vc.buyLabel.text = entitiy.buy
+            vc.sellLabel.text = entitiy.sell
+            vc.currentRate.text = entitiy.currentRate
+            vc.updownIcon.text = entitiy.updownIcon
+            vc.updownRate.text = entitiy.updownString
+        }
+    }
+}
 
