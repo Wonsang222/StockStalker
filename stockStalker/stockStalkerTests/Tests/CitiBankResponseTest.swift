@@ -35,4 +35,15 @@ class CitiBankResponseTest: XCTestCase {
             XCTFail()
         }
     }
+    
+    func testCitiBankDTO_WhenToDomain_ThenReturnDomainParameter() async {
+        let url = CitiBankAPI.url
+        let req = URLRequest(url: URL(string: url)!)
+        let (data, _) = try! await sut.request(req: req, config: .default)
+        let dto: CitiBankResponseDTO = try! decoder.decode(data)
+        let domain = dto.toDomain(target: .USD)
+        
+        XCTAssertTrue(domain.country == .USD)
+
+    }
 }

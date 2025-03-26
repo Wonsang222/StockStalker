@@ -29,6 +29,11 @@ final class MoneyRateVC: UIViewController, StoryboardView {
     // MARK: - Graph
     @IBOutlet weak var chartContainer: UIView!
     private let _chartView = ChartMainView()
+    
+    fileprivate lazy var coloredComponents = [
+        updownIcon,
+        updownRate
+    ]
 
     var disposeBag = DisposeBag()
 
@@ -89,8 +94,13 @@ fileprivate extension Reactive where Base: MoneyRateVC {
             vc.buyLabel.text = entitiy.buy
             vc.sellLabel.text = entitiy.sell
             vc.currentRate.text = entitiy.currentRate
-            vc.updownIcon.text = entitiy.updownIcon
-            vc.updownRate.text = entitiy.updownString
+
+            if let updown = entitiy.updownIcon {
+                let color:UIColor = updown == .Up ? .red : .blue
+                vc.coloredComponents.forEach { $0?.textColor = color }
+                vc.updownRate.text = entitiy.updownString
+                vc.updownIcon.text = updown.rawValue
+            }
         }
     }
 }

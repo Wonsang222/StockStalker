@@ -41,10 +41,11 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7E0B38732D7FAACF00C508D9 /* VC */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VC; sourceTree = "<group>"; };
-		7E499EFA2D7923140066AF6F /* Extensions */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Extensions; sourceTree = "<group>"; };
-		7E499F132D792E260066AF6F /* Common */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Common; sourceTree = "<group>"; };
+		7E10C6E22D93863600CEF95C /* SCENE */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SCENE; sourceTree = "<group>"; };
+		7E499EFA2D7923140066AF6F /* EXTENSION */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EXTENSION; sourceTree = "<group>"; };
+		7E499F132D792E260066AF6F /* COMMON */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = COMMON; sourceTree = "<group>"; };
 		7E5454C42D8A63AF00DE9745 /* API */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = API; sourceTree = "<group>"; };
-		7E5DD76A2D815B790066D4A4 /* NetworkService */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = NetworkService; sourceTree = "<group>"; };
+		7E5DD76A2D815B790066D4A4 /* SERVICE */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SERVICE; sourceTree = "<group>"; };
 		7EF8D5CB2D77D7B10029609F /* VM */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VM; sourceTree = "<group>"; };
 		7EF8D5D02D77D86E0029609F /* VIEW */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VIEW; sourceTree = "<group>"; };
 		C15302FF2D7B470000CE9459 /* stockStalkerTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = stockStalkerTests; sourceTree = "<group>"; };
@@ -94,11 +95,12 @@
 		7E1751842D36175D0097FE4A /* stockStalker */ = {
 			isa = PBXGroup;
 			children = (
+				7E10C6E22D93863600CEF95C /* SCENE */,
 				7E5454C42D8A63AF00DE9745 /* API */,
-				7E5DD76A2D815B790066D4A4 /* NetworkService */,
+				7E5DD76A2D815B790066D4A4 /* SERVICE */,
 				7E0B38732D7FAACF00C508D9 /* VC */,
-				7E499F132D792E260066AF6F /* Common */,
-				7E499EFA2D7923140066AF6F /* Extensions */,
+				7E499F132D792E260066AF6F /* COMMON */,
+				7E499EFA2D7923140066AF6F /* EXTENSION */,
 				7EF8D5D02D77D86E0029609F /* VIEW */,
 				7EF8D5CB2D77D7B10029609F /* VM */,
 				7E1751852D36175D0097FE4A /* AppDelegate.swift */,
@@ -136,10 +138,11 @@
 			);
 			fileSystemSynchronizedGroups = (
 				7E0B38732D7FAACF00C508D9 /* VC */,
-				7E499EFA2D7923140066AF6F /* Extensions */,
-				7E499F132D792E260066AF6F /* Common */,
+				7E10C6E22D93863600CEF95C /* SCENE */,
+				7E499EFA2D7923140066AF6F /* EXTENSION */,
+				7E499F132D792E260066AF6F /* COMMON */,
 				7E5454C42D8A63AF00DE9745 /* API */,
-				7E5DD76A2D815B790066D4A4 /* NetworkService */,
+				7E5DD76A2D815B790066D4A4 /* SERVICE */,
 				7EF8D5CB2D77D7B10029609F /* VM */,
 				7EF8D5D02D77D86E0029609F /* VIEW */,
 			);

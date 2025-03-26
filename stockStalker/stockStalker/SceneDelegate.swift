@@ -10,13 +10,12 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    let container = SceneDIContainer()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        let rootVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "MoneyRate") as! MoneyRateVC
-        window?.rootViewController = rootVC
+        window?.rootViewController = container.makeVC()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

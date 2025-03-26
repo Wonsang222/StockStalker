@@ -10,17 +10,8 @@ import Foundation
 struct CitiBankEntity {
     
     enum UpDown: String, CaseIterable {
-        case Up = "상승"
-        case Down = "하락"
-        
-        var getIcon: String {
-            switch self {
-            case .Up:
-                return "🔺"
-            case .Down:
-                return "🔻"
-            }
-        }
+        case Up = "🔺"
+        case Down = "🔻"
     }
     
     let date: String
@@ -29,7 +20,7 @@ struct CitiBankEntity {
     let buy: String
     let sell: String
     var updownString: String? = nil
-    var updownIcon: String? = nil
+    var updownIcon: UpDown? = nil
     
     init (
         date: String,
@@ -48,11 +39,11 @@ struct CitiBankEntity {
         if let updown = updown {
             let updownRawString = convertUpdownString(target: updown)
             if updownRawString.hasPrefix("-") {
-                updownIcon = UpDown.Down.getIcon
+                updownIcon = UpDown.Down
                 let dropFirst = updownRawString.dropFirst()
                 updownString = String(dropFirst)
             } else {
-                updownIcon = UpDown.Up.getIcon
+                updownIcon = UpDown.Up
                 updownString = updownRawString
             }
         }
