@@ -89,7 +89,7 @@ final class ChartUnderView: UIView {
     }
     
     private func parseEntities(_ entities: ChartEntities) -> [CGRect] {
-        var locationXY = [CGRect]()
+        let locationXY = [CGRect]()
         let entityX = self.bounds.width / entities.chart.count.makeCGFloat
         
         let dates = entities.chart

@@ -34,7 +34,6 @@ final class ChartView: UIView {
         didSet {
             
             guard let _entities = _chartInfo else { return }
-            print("now", _entities.chart.count)
             var rates = [CGFloat]()
             
             for chartInfo in _entities.chart {
@@ -132,10 +131,9 @@ final class ChartView: UIView {
     }
     
     private func drawDot() {
-        
         let maxPoint = maxMinYTuple.0
         let minPoint = maxMinYTuple.2
-        
+
         // 최대값 은 가장 최신의 값만 사용
         for location in locations.reversed() {
             let circleLayer = TaggedLayer()
@@ -144,7 +142,7 @@ final class ChartView: UIView {
             if location.y == maxPoint {
                 circlePath.addArc(withCenter: CGPoint(x: location.x,
                                                       y: maxPoint!),
-                                                      radius: 3,
+                                                      radius: 5,
                                                       startAngle: 0,
                                                       endAngle: .pi * 2,
                                                       clockwise: true)
@@ -164,8 +162,8 @@ final class ChartView: UIView {
             let circlePath = UIBezierPath()
             if location.y == minPoint {
                 circlePath.addArc(withCenter: CGPoint(x: location.x,
-                                                      y: minPoint! - 5),
-                                                      radius: 3,
+                                                      y: minPoint!),
+                                                      radius: 5,
                                                       startAngle: 0,
                                                       endAngle: .pi * 2,
                                                       clockwise: true)
@@ -181,16 +179,16 @@ final class ChartView: UIView {
     
     override func draw(_ rect: CGRect) {
         guard !_rates.isEmpty else { return }
-        
-        let _beizierPath = UIBezierPath()
+
+        locations.removeAll()
         self.layer.sublayers?.removeAll()
+        let _beizierPath = UIBezierPath()
         let taggedLayer = TaggedLayer()
         taggedLayer.tag = _chartTag
         
         let positionY = calculateLocationY(rect: rect)
         let positionX = calculateLocationX(rect: rect)
-      
-        
+    
         zip(positionX, positionY).forEach { locations.append(CGPoint(x: $0, y: $1)) }
         
         for (idx,location) in locations.enumerated() {
@@ -207,13 +205,11 @@ final class ChartView: UIView {
         }
         
         taggedLayer.path = _beizierPath.cgPath
-        taggedLayer.strokeColor = UIColor.red.cgColor
+        taggedLayer.strokeColor = UIColor.systemRed.cgColor
         taggedLayer.lineWidth = 2
         taggedLayer.fillColor = UIColor.clear.cgColor
         self.layer.addSublayer(taggedLayer)
-        
-//        current = taggedLayer
-//        drawDot()
+        drawDot()
     }
     
     private func convertDate(_ interval: Int) -> String {
@@ -224,14 +220,13 @@ final class ChartView: UIView {
 extension ChartView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        self.layer.sublayers?.removeAll()
-//        addTouchLine(touches)
+        addTouchLine(touches)
 //        addInfoLabel(touches)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
-//        addTouchLine(touches)
+        addTouchLine(touches)
 //        addInfoLabel(touches)
     }
     
@@ -300,7 +295,7 @@ extension ChartView {
             return
         }
         
-        removeExistingLayer(tagNum: 200)
+        removeExistingLayer(tagNum: _touchLineTag)
         
         let touchX = touchXY.x
         // 보정
