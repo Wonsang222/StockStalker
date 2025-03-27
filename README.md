@@ -25,9 +25,134 @@
 ## 차트
 ![Image](https://github.com/user-attachments/assets/fb77c704-a5e3-41ee-9d86-76532f9770df)
 
+~~~swift
+// UIView를 상속하여, draw 메서드를 아래와 같이 정의했습니다.
+    override func draw(_ rect: CGRect) {
+        guard !_rates.isEmpty else { return }
+        removeAll()
+        let _beizierPath = UIBezierPath()
+        let taggedLayer = TaggedLayer()
+        taggedLayer.tag = _chartTag
+        
+        let positionY = calculateLocationY(rect: rect)
+        let positionX = calculateLocationX(rect: rect)
+    
+		// X(뷰 넓이 /데이터 개수) Y(전달된 데이터 값에 따른 상대적 높이)
+        zip(positionX, positionY).forEach { locations.append(CGPoint(x: $0, y: $1)) }
+        
+        for (idx,location) in locations.enumerated() {
+            
+            if idx == 0 {
+                _beizierPath.move(to: location)
+                continue
+            }
+            if idx == locations.count - 1 {
+                _beizierPath.addLine(to: location)
+                break
+            }
+            _beizierPath.addLine(to: location)
+        }
+        
+        taggedLayer.path = _beizierPath.cgPath
+        taggedLayer.strokeColor = UIColor.systemRed.cgColor
+        taggedLayer.lineWidth = 2
+        taggedLayer.fillColor = UIColor.clear.cgColor
+        self.layer.addSublayer(taggedLayer)
+        drawDot()
+    }
+
+    private func calculateLocationY(rect: CGRect) -> [CGFloat] {
+        let height = rect.height
+        var positionY = [CGFloat]()
+        let firstYValue = _rates[0]
+		// 배열 순회 -> 최대 최소 값을 구하는 로직
+        let maxminY = _rates.reduce((firstYValue, firstYValue)){ partialResult, currentValue in
+            let max = currentValue > partialResult.0 ? currentValue : partialResult.0
+            let min = currentValue < partialResult.1 ? currentValue : partialResult.1
+            return (max,min)
+        }
+        
+        maxMinYTuple.1 = maxminY.0
+        maxMinYTuple.3 = maxminY.1
+        
+        let maxY = maxminY.0
+        let minY = maxminY.1
+        let range = maxY - minY
+        
+        // height : range = x : spotY
+        // x  = spotyY * hegiht / range
+        // CGPoint -> 반전
+        
+        _rates.forEach {
+            let spotY = $0 - minY
+            let yLocation = height * (1 - (spotY / range))
+            
+            // 최대값  ( point, rate ) -> 갱신
+            if spotY == range {
+                maxMinYTuple.0 = yLocation
+            }
+            // 최소값 -> 가장 처음에 들어오는 최소값만 사용
+            if spotY == 0 {
+                if maxMinYTuple.2 == nil {
+                    maxMinYTuple.2 = yLocation
+                }
+            }
+            
+            positionY.append(yLocation)
+        }
+        return positionY
+    }
+
+    private func drawDot() {
+        let maxPoint = maxMinYTuple.0
+        let minPoint = maxMinYTuple.2
+
+        // 최대값 은 가장 최신의 값만 사용
+        for location in locations.reversed() {
+            let circleLayer = TaggedLayer()
+            circleLayer.tag = _circleTag
+            let circlePath = UIBezierPath()
+            if location.y == maxPoint {
+                circlePath.addArc(withCenter: CGPoint(x: location.x,
+                                                      y: maxPoint!),
+                                                      radius: 5,
+                                                      startAngle: 0,
+                                                      endAngle: .pi * 2,
+                                                      clockwise: true)
+                circleLayer.path = circlePath.cgPath
+                circleLayer.lineWidth = 2
+                circleLayer.strokeColor = UIColor.clear.cgColor
+                circleLayer.fillColor = UIColor.blue.cgColor
+                self.layer.addSublayer(circleLayer)
+                break
+            }
+        }
+        
+        // 최소값은 가장 앞의 값을 사용
+        for location in locations {
+            let circleLayer = TaggedLayer()
+            circleLayer.tag = _circleTag
+            let circlePath = UIBezierPath()
+            if location.y == minPoint {
+                circlePath.addArc(withCenter: CGPoint(x: location.x,
+                                                      y: minPoint!),
+                                                      radius: 5,
+                                                      startAngle: 0,
+                                                      endAngle: .pi * 2,
+                                                      clockwise: true)
+                circleLayer.path = circlePath.cgPath
+                circleLayer.lineWidth = 2
+                circleLayer.strokeColor = UIColor.clear.cgColor
+                circleLayer.fillColor = UIColor.blue.cgColor
+                self.layer.addSublayer(circleLayer)
+                break
+            }
+        }
+    }
+
+~~~
+
 ## 시티은행 웹 크롤링
-
-
 
 ```swift
 해당 웹페이지로 이동 후, 로드가 완료되면, 해당 페이지의 HTML 태그를 자바스크립트로

@@ -8,20 +8,20 @@
 import UIKit
 import AVFoundation
 
+// 일일 일때 2개의 데이터가 들아오는 경우가 있음. 이럴때 그래프가 안나옴.. -> 예외처리 -> domain에서 ..? 1주일로 강제고정?
+
 // Model 만들것 -> tuple x
 // chartEntities를 몰라야한다.
+
+fileprivate let _circleTag = 99
+fileprivate let _touchLineTag = 200
+fileprivate let _chartTag = 100
 
 final class ChartView: UIView {
     
     private var _infoView: UIView?
-    private let _circleTag = 99
-    private let _touchLineTag = 200
-    private let _chartTag = 100
     private var maxMinYTuple: (CGFloat?, CGFloat, CGFloat?, CGFloat) = (nil,0,nil,0)
-    
-    var cur: Int?
-    
-    var current: CAShapeLayer?
+    private var locations: [CGPoint] = []
     
     private let _formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -32,7 +32,6 @@ final class ChartView: UIView {
     // 비즈니스 로직
     private var _chartInfo: ChartEntities? {
         didSet {
-            
             guard let _entities = _chartInfo else { return }
             var rates = [CGFloat]()
             
@@ -49,8 +48,6 @@ final class ChartView: UIView {
         }
     }
     
-    private var locations: [CGPoint] = []
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -62,11 +59,7 @@ final class ChartView: UIView {
     public func setEntities(_ entities: ChartEntities?) {
         self._chartInfo = entities
     }
-    
-    private func removeAllLayer() {
-        self.layer.sublayers?.removeAll()
-    }
-    
+
     private func removeExistingLayer(tagNum: Int) {
         self.layer.sublayers?.forEach { layer in
             if let taggedLayer = layer as? TaggedLayer {
@@ -177,11 +170,14 @@ final class ChartView: UIView {
         }
     }
     
-    override func draw(_ rect: CGRect) {
-        guard !_rates.isEmpty else { return }
-
+    private func removeAll() {
         locations.removeAll()
         self.layer.sublayers?.removeAll()
+    }
+    
+    override func draw(_ rect: CGRect) {
+        guard !_rates.isEmpty else { return }
+        removeAll()
         let _beizierPath = UIBezierPath()
         let taggedLayer = TaggedLayer()
         taggedLayer.tag = _chartTag
@@ -221,18 +217,18 @@ extension ChartView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         addTouchLine(touches)
-//        addInfoLabel(touches)
+        addInfoLabel(touches)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesMoved(touches, with: event)
         addTouchLine(touches)
-//        addInfoLabel(touches)
+        addInfoLabel(touches)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-//        removeExistingLayer(tagNum: _chartTag)
+//        removeExistingLayer(tagNum: _touchLineTag)
 //        _infoView?.removeFromSuperview()
     }
     
@@ -252,7 +248,6 @@ extension ChartView {
         // 보정
         for (idx,location) in locations.enumerated() {
             if touchX <= location.x {
-                
                 _infoView = _label
                 let sv = _infoView?.viewWithTag(3) as! UIStackView
                 let dateLabel = sv.viewWithTag(1) as! UILabel
@@ -260,8 +255,10 @@ extension ChartView {
                 let currentInfo = chartInfo.chart[idx]
                 dateLabel.text = "\(self.convertDate(currentInfo.timestamp))"
                 rateLabel.text = "\(currentInfo.rate)"
-                let size = _infoView!.intrinsicContentSize
+                let size = sv.intrinsicContentSize
                 
+                print("view intrisic", _label.intrinsicContentSize.debugDescription)
+
                 var x:CGFloat = idx.makeCGFloat + (dateLabel.intrinsicContentSize.width / 2)
                 let y = location.y
                 
@@ -282,7 +279,8 @@ extension ChartView {
                 }
     
                 _infoView!.frame = CGRect(origin: CGPoint(x: x, y: infoViewY), size: size)
-                addSubview(_infoView!)
+                
+//                addSubview(_infoView!)
                 break
             }
         }
@@ -298,7 +296,7 @@ extension ChartView {
         removeExistingLayer(tagNum: _touchLineTag)
         
         let touchX = touchXY.x
-        // 보정
+        // 현재 터치된 x와 가장 가까운 데이터의 x위치, 그에따른 y 값
         for location in locations {
             if touchX <= location.x {
                 let x = location.x
@@ -332,20 +330,6 @@ extension ChartView {
         }
     }
 }
-
-extension CALayer {
-    func removeLayer(with tag: Int) {
-        if let subLayers = self.sublayers {
-            for subLayer in subLayers {
-                if let taggedLayer = subLayer as? TaggedLayer,
-                   taggedLayer.tag == tag {
-                    taggedLayer.removeFromSuperlayer()
-                }
-            }
-        }
-    }
-}
-
 
 fileprivate class TaggedLayer: CAShapeLayer {
     var tag: Int = 0

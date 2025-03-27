@@ -212,8 +212,8 @@ final class AsyncDataTransferServiceImplementaion {
             return successData
         } catch {
             throw NetworkError.dataParse
-        }    }
-    
+        }
+    }
 }
 
 extension AsyncDataTransferServiceImplementaion: AsyncDataTransferService {
@@ -229,7 +229,7 @@ protocol RxDataTransferWrapperType {
 }
 
 final class RxDataTransferWrapper: RxDataTransferWrapperType {
-    let _asyncDataTransferService: AsyncDataTransferService
+    private let _asyncDataTransferService: AsyncDataTransferService
     
     init(_asyncDataTransferService: AsyncDataTransferService) {
         self._asyncDataTransferService = _asyncDataTransferService
