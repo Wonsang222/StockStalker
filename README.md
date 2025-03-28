@@ -23,7 +23,7 @@
 # 앱의구성
 
 ## 차트
-![Image](https://github.com/user-attachments/assets/fb77c704-a5e3-41ee-9d86-76532f9770df)
+![Image](https://github.com/user-attachments/assets/cbba994b-eebc-4ef7-a940-fdd4f646ee8e)
 
 ~~~swift
 // UIView를 상속하여, draw 메서드를 아래와 같이 정의했습니다.

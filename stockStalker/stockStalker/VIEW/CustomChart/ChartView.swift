@@ -173,6 +173,8 @@ final class ChartView: UIView {
     private func removeAll() {
         locations.removeAll()
         self.layer.sublayers?.removeAll()
+        _infoView?.removeFromSuperview()
+        _infoView = nil
     }
     
     override func draw(_ rect: CGRect) {
@@ -228,8 +230,9 @@ extension ChartView {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-//        removeExistingLayer(tagNum: _touchLineTag)
-//        _infoView?.removeFromSuperview()
+        removeExistingLayer(tagNum: _touchLineTag)
+        _infoView?.removeFromSuperview()
+        _infoView = nil
     }
     
     
@@ -243,23 +246,20 @@ extension ChartView {
         }
         
         _infoView?.removeFromSuperview()
-        let _label = { UINib(nibName: "ChartLabel", bundle: nil).instantiate(withOwner: self).first as! UIView }()
+        _infoView = nil
+        let chartLabel = { UINib(nibName: "ChartLabel", bundle: nil).instantiate(withOwner: self).first as! CustomLabelView }()
         let touchX = touchXY.x
         // 보정
         for (idx,location) in locations.enumerated() {
             if touchX <= location.x {
-                _infoView = _label
-                let sv = _infoView?.viewWithTag(3) as! UIStackView
-                let dateLabel = sv.viewWithTag(1) as! UILabel
-                let rateLabel = sv.viewWithTag(2) as! UILabel
+                _infoView = chartLabel
                 let currentInfo = chartInfo.chart[idx]
-                dateLabel.text = "\(self.convertDate(currentInfo.timestamp))"
-                rateLabel.text = "\(currentInfo.rate)"
-                let size = sv.intrinsicContentSize
-                
-                print("view intrisic", _label.intrinsicContentSize.debugDescription)
+                chartLabel.setDateText("\(self.convertDate(currentInfo.timestamp))")
+                chartLabel.setRateText("\(currentInfo.rate)")
+                let size  = chartLabel.estimateSize()
 
-                var x:CGFloat = idx.makeCGFloat + (dateLabel.intrinsicContentSize.width / 2)
+//                var x:CGFloat = idx.makeCGFloat + (size.width / 2)
+                var x: CGFloat = location.x
                 let y = location.y
                 
                 var infoViewY = self.bounds.height - 10
@@ -275,12 +275,13 @@ extension ChartView {
 
                 // x의 값이 차트 중간을 넘어가면, 위치를 이동
                 if idx > locations.count / 2 {
-                    x = idx.makeCGFloat - (dateLabel.intrinsicContentSize.width / 2)
+                    x = x - (size.width)
                 }
     
+                print("x", x)
                 _infoView!.frame = CGRect(origin: CGPoint(x: x, y: infoViewY), size: size)
                 
-//                addSubview(_infoView!)
+                addSubview(_infoView!)
                 break
             }
         }
