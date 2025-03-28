@@ -149,6 +149,42 @@
             }
         }
     }
+    
+    // 차트에서 환율 정보를 나타내는 뷰 (2개의 라벨을 스택뷰로 배치)
+    // 동적으로 사이즈가 변하는 UIView를 구현
+    // 내부의 UILabel의 text 주입 후, intrisic size를 계산해서 해당 뷰의 CGSize로 리턴
+    
+    class CustomLabelView: UIView {
+    
+    func setDateText(_ str: String) {
+        let stackView = self.viewWithTag(3) as! UIStackView
+        let dateLabel = stackView.viewWithTag(1) as! UILabel
+        dateLabel.text = str
+    }
+    
+    func setRateText(_ str: String) {
+        let stackView = self.viewWithTag(3) as! UIStackView
+        let rateLabel = stackView.viewWithTag(2) as! UILabel
+        rateLabel.text = str
+    }
+    
+    func estimateSize() -> CGSize {
+        let stackView = self.viewWithTag(3) as! UIStackView
+        
+        var width: CGFloat = 0
+        var height: CGFloat = 0
+        
+        stackView.arrangedSubviews.forEach {
+            // 가로 크기는 두개의 라벨 중 더 큰 라벨의 사이즈를 기준으로 함.
+            if width < $0.intrinsicContentSize.width {
+                width = $0.intrinsicContentSize.width
+            }
+            
+            height += $0.intrinsicContentSize.height
+        }
+        return CGSize(width: width, height: height)
+    }
+}
 
 ~~~
 
