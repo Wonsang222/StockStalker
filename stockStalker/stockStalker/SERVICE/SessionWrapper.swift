@@ -27,8 +27,8 @@ final class LegacyNetworkSessionManagerWrapper: AsyncSessionManager {
                 
                 var isResumed = false
                 webViewSession.fetchHTML(req: req) { result in
-                                guard !isResumed else { return } // 이미 호출되었다면 무시
-                    isResumed = true
+                guard !isResumed else { return } // 이미 호출되었다면 무시
+                isResumed = true
                 
                     switch result {
                     case .success(let resultString):

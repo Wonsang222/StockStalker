@@ -13,8 +13,6 @@ import SwiftUI
 
 final class MoneyRateVC: UIViewController, StoryboardView {
     
-    let webview = WKWebViewSessionManager()
-    
     // MARK: - Current Rate
     @IBOutlet weak var nationalFlag: UILabel!
     @IBOutlet weak var currentRate: UILabel!
@@ -32,7 +30,7 @@ final class MoneyRateVC: UIViewController, StoryboardView {
     @IBOutlet weak var chartContainer: UIView!
     private let _chartView = ChartMainView()
     
-    fileprivate lazy var coloredComponents = [
+    fileprivate lazy var coloredComponents: [UIView] = [
         updownRate,
         updownIcon
     ]
@@ -61,8 +59,7 @@ final class MoneyRateVC: UIViewController, StoryboardView {
             .map { Reactor.Action.tapBtn($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        
-//         하나은행 Parsing, yahoo 1일차 로딩. -> view 자리잡고 로드해야함.
+
         self.rx.viewWillAppear
             .map { CitiBankAPI.Countries.USD }
             .map { Reactor.Action.fetchCitiBankInfo($0) }
@@ -112,10 +109,13 @@ fileprivate extension Reactive where Base: MoneyRateVC {
                 
                 let color:UIColor = updown == .Up ? .red : .blue
                 vc.coloredComponents.forEach {
-                    if let view = $0 as? UILabel {
-                        view.textColor = color
+                    if let label = $0 as? UILabel {
+                        label.textColor = color
                     }
-                    $0?.tintColor = color
+                    
+                    if let imgView = $0 as? UIImageView {
+                        imgView.tintColor = color
+                    }
                 }
             }
         }

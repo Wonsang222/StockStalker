@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7E1751862D36175D0097FE4A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1751852D36175D0097FE4A /* AppDelegate.swift */; };
-		7E1751882D36175D0097FE4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1751872D36175D0097FE4A /* SceneDelegate.swift */; };
-		7E17518F2D3617610097FE4A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E17518E2D3617610097FE4A /* Assets.xcassets */; };
-		7E1751922D3617610097FE4A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1751902D3617610097FE4A /* LaunchScreen.storyboard */; };
 		7E5793E02D8CEF6B005A48FF /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5793DE2D8CEF64005A48FF /* WebKit.framework */; };
 		7EF3280A2D6D449B0050820B /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7EF328092D6D449B0050820B /* RxCocoa */; };
 		7EF3280C2D6D449B0050820B /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7EF3280B2D6D449B0050820B /* RxSwift */; };
@@ -29,21 +25,27 @@
 
 /* Begin PBXFileReference section */
 		7E1751822D36175D0097FE4A /* stockStalker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stockStalker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E1751852D36175D0097FE4A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7E1751872D36175D0097FE4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7E17518E2D3617610097FE4A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		7E1751912D3617610097FE4A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		7E1751932D3617610097FE4A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E5793DE2D8CEF64005A48FF /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		7E5794352D8CF116005A48FF /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.2.sdk/System/iOSSupport/System/Library/PrivateFrameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		C15302FE2D7B470000CE9459 /* stockStalkerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = stockStalkerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7E4E3DFE2D9A398000797C94 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 7E1751812D36175D0097FE4A /* stockStalker */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7E0B38732D7FAACF00C508D9 /* VC */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VC; sourceTree = "<group>"; };
 		7E10C6E22D93863600CEF95C /* SCENE */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SCENE; sourceTree = "<group>"; };
 		7E499EFA2D7923140066AF6F /* EXTENSION */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EXTENSION; sourceTree = "<group>"; };
 		7E499F132D792E260066AF6F /* COMMON */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = COMMON; sourceTree = "<group>"; };
+		7E4E3DFD2D9A396B00797C94 /* Etc */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7E4E3DFE2D9A398000797C94 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Etc; sourceTree = "<group>"; };
 		7E5454C42D8A63AF00DE9745 /* API */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = API; sourceTree = "<group>"; };
 		7E5DD76A2D815B790066D4A4 /* SERVICE */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SERVICE; sourceTree = "<group>"; };
 		7EF8D5CB2D77D7B10029609F /* VM */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = VM; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		7E1751842D36175D0097FE4A /* stockStalker */ = {
 			isa = PBXGroup;
 			children = (
+				7E4E3DFD2D9A396B00797C94 /* Etc */,
 				7E10C6E22D93863600CEF95C /* SCENE */,
 				7E5454C42D8A63AF00DE9745 /* API */,
 				7E5DD76A2D815B790066D4A4 /* SERVICE */,
@@ -103,11 +106,6 @@
 				7E499EFA2D7923140066AF6F /* EXTENSION */,
 				7EF8D5D02D77D86E0029609F /* VIEW */,
 				7EF8D5CB2D77D7B10029609F /* VM */,
-				7E1751852D36175D0097FE4A /* AppDelegate.swift */,
-				7E1751872D36175D0097FE4A /* SceneDelegate.swift */,
-				7E17518E2D3617610097FE4A /* Assets.xcassets */,
-				7E1751902D3617610097FE4A /* LaunchScreen.storyboard */,
-				7E1751932D3617610097FE4A /* Info.plist */,
 			);
 			path = stockStalker;
 			sourceTree = "<group>";
@@ -141,6 +139,7 @@
 				7E10C6E22D93863600CEF95C /* SCENE */,
 				7E499EFA2D7923140066AF6F /* EXTENSION */,
 				7E499F132D792E260066AF6F /* COMMON */,
+				7E4E3DFD2D9A396B00797C94 /* Etc */,
 				7E5454C42D8A63AF00DE9745 /* API */,
 				7E5DD76A2D815B790066D4A4 /* SERVICE */,
 				7EF8D5CB2D77D7B10029609F /* VM */,
@@ -221,8 +220,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E1751922D3617610097FE4A /* LaunchScreen.storyboard in Resources */,
-				7E17518F2D3617610097FE4A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,8 +237,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E1751862D36175D0097FE4A /* AppDelegate.swift in Sources */,
-				7E1751882D36175D0097FE4A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,17 +256,6 @@
 			targetProxy = C15303022D7B470000CE9459 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		7E1751902D3617610097FE4A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7E1751912D3617610097FE4A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		7E1751942D3617610097FE4A /* Debug */ = {
@@ -402,7 +386,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZD5K45Y4NW;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = stockStalker/Info.plist;
+				INFOPLIST_FILE = stockStalker/Etc/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -435,7 +419,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZD5K45Y4NW;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = stockStalker/Info.plist;
+				INFOPLIST_FILE = stockStalker/Etc/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
