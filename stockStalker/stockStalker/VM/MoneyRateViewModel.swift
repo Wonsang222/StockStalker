@@ -31,7 +31,7 @@ final class MoneyRateViewModel: Reactor {
     
     enum Action {
         case tapBtn(YahooServices)
-        case fetchCitiBank
+        case fetchCitiBankInfo(CitiBankAPI.Countries)
     }
     
     enum Mutation {
@@ -62,7 +62,7 @@ final class MoneyRateViewModel: Reactor {
                     .catch(self.createErrorHandler)
                 ,Observable.just(.setLoading(false))
             ])
-        case .fetchCitiBank:
+        case .fetchCitiBankInfo:
             return _webViewSession.request(convertToEndpoint())
                 .map { Mutation.fetchCitiBankInfo($0.toDomain(target: .USD)) }
                 .asObservable()

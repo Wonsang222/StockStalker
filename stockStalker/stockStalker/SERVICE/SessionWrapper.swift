@@ -24,7 +24,12 @@ final class LegacyNetworkSessionManagerWrapper: AsyncSessionManager {
         
         try await withCheckedThrowingContinuation { continuation in
             Task { @MainActor in
+                
+                var isResumed = false
                 webViewSession.fetchHTML(req: req) { result in
+                                guard !isResumed else { return } // 이미 호출되었다면 무시
+                    isResumed = true
+                
                     switch result {
                     case .success(let resultString):
                         guard let data = resultString.data(using: .utf8) else {
@@ -50,18 +55,18 @@ final class DefaultAsyncSessionManager: AsyncSessionManager {
 
 final class WKWebViewSessionManager: NSObject, WKNavigationDelegate {
     
-    private let _wkWebView = WKWebView(frame: .zero)
+    let _wkWebView = WKWebView(frame: .zero)
     private var handler: ((Result<String, NetworkError>) -> Void)?
     
     override init() {
         super.init()
         _wkWebView.navigationDelegate = self
+        _wkWebView.customUserAgent = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Mobile Safari/537.36"
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        
         guard let handler = handler else { return }
-        
+
         DispatchQueue.main.async {
             
             let fetcher = """
@@ -127,7 +132,8 @@ final class WKWebViewSessionManager: NSObject, WKNavigationDelegate {
                 return JSON.stringify(infoObj);
             })();
             """
-            self._wkWebView.evaluateJavaScript(fetcher) { result, error in
+            
+            webView.evaluateJavaScript(fetcher) { result, error in
                 
                 if error != nil {
                     handler(.failure(.dataParse))
@@ -143,6 +149,7 @@ final class WKWebViewSessionManager: NSObject, WKNavigationDelegate {
     }
     
     func fetchHTML(req: URLRequest, completion: @escaping (Result<String, NetworkError>) -> Void) {
+        
         DispatchQueue.main.async {
             self.handler = completion
             self._wkWebView.load(req)

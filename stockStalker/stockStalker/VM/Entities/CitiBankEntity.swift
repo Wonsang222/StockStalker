@@ -10,8 +10,8 @@ import Foundation
 struct CitiBankEntity {
     
     enum UpDown: String, CaseIterable {
-        case Up = "🔺"
-        case Down = "🔻"
+        case Up = "arrowtriangle.up.fill"
+        case Down = "arrowtriangle.down.fill"
     }
     
     let date: String
@@ -52,7 +52,7 @@ struct CitiBankEntity {
 
 fileprivate extension CitiBankEntity {
     func convertUpdownString(target: String) -> String {
-        let pattern = "^-?[0-9]+(\\.[0-9]{1,2})?$"
+        let pattern = "-?[0-9]+(\\.[0-9]{1,2})?"
         let regex = try! NSRegularExpression(pattern: pattern)
         let range = NSRange(target.startIndex..<target.endIndex, in: target)
         guard let match = regex.firstMatch(in: target, range: range) else { return "시간 정보가 없습니다" }

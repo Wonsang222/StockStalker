@@ -12,11 +12,13 @@ import ReactorKit
 import SwiftUI
 
 final class MoneyRateVC: UIViewController, StoryboardView {
-    // MARK: - Current Rate
     
+    let webview = WKWebViewSessionManager()
+    
+    // MARK: - Current Rate
     @IBOutlet weak var nationalFlag: UILabel!
     @IBOutlet weak var currentRate: UILabel!
-    @IBOutlet weak var updownIcon: UILabel!
+    @IBOutlet weak var updownIcon: UIImageView!
     @IBOutlet weak var updownRate: UILabel!
     
     // MARK: - Time Standard
@@ -31,15 +33,14 @@ final class MoneyRateVC: UIViewController, StoryboardView {
     private let _chartView = ChartMainView()
     
     fileprivate lazy var coloredComponents = [
-        updownIcon,
-        updownRate
+        updownRate,
+        updownIcon
     ]
 
     var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     private func configureUI() {
@@ -61,10 +62,17 @@ final class MoneyRateVC: UIViewController, StoryboardView {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        // 하나은행 Parsing, yahoo 1일차 로딩. -> view 자리잡고 로드해야함.
+//         하나은행 Parsing, yahoo 1일차 로딩. -> view 자리잡고 로드해야함.
         self.rx.viewWillAppear
-        // observable maptoVoid
-        
+            .map { CitiBankAPI.Countries.USD }
+            .map { Reactor.Action.fetchCitiBankInfo($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
+        reactor.pulse(\.$citiBankInfo)
+            .compactMap { $0 }
+            .bind(to: self.rx.citiBankApiHandler)
+            .disposed(by: disposeBag)
         
         reactor.pulse(\.$citiBankInfo)
             .compactMap {$0}
@@ -94,12 +102,21 @@ fileprivate extension Reactive where Base: MoneyRateVC {
             vc.buyLabel.text = entitiy.buy
             vc.sellLabel.text = entitiy.sell
             vc.currentRate.text = entitiy.currentRate
-
+            vc.updownIcon.image = nil
+            vc.updownRate.text = ""
+            
             if let updown = entitiy.updownIcon {
-                let color:UIColor = updown == .Up ? .red : .blue
-                vc.coloredComponents.forEach { $0?.textColor = color }
+                
                 vc.updownRate.text = entitiy.updownString
-                vc.updownIcon.text = updown.rawValue
+                vc.updownIcon.image = UIImage(systemName: entitiy.updownIcon!.rawValue)
+                
+                let color:UIColor = updown == .Up ? .red : .blue
+                vc.coloredComponents.forEach {
+                    if let view = $0 as? UILabel {
+                        view.textColor = color
+                    }
+                    $0?.tintColor = color
+                }
             }
         }
     }

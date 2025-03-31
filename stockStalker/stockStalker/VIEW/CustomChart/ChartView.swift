@@ -106,7 +106,9 @@ final class ChartView: UIView {
         _rates.forEach {
             let spotY = $0 - minY
             let yLocation = height * (1 - (spotY / range))
-            
+            if yLocation < 0 {
+                
+            }
             // 최대값  ( point, rate ) -> 갱신
             if spotY == range {
                 maxMinYTuple.0 = yLocation
@@ -127,6 +129,8 @@ final class ChartView: UIView {
         let maxPoint = maxMinYTuple.0
         let minPoint = maxMinYTuple.2
 
+        
+        
         // 최대값 은 가장 최신의 값만 사용
         for location in locations.reversed() {
             let circleLayer = TaggedLayer()
@@ -134,8 +138,8 @@ final class ChartView: UIView {
             let circlePath = UIBezierPath()
             if location.y == maxPoint {
                 circlePath.addArc(withCenter: CGPoint(x: location.x,
-                                                      y: maxPoint!),
-                                                      radius: 5,
+                                                      y: maxPoint! - 2),
+                                                      radius: 4,
                                                       startAngle: 0,
                                                       endAngle: .pi * 2,
                                                       clockwise: true)
@@ -155,8 +159,8 @@ final class ChartView: UIView {
             let circlePath = UIBezierPath()
             if location.y == minPoint {
                 circlePath.addArc(withCenter: CGPoint(x: location.x,
-                                                      y: minPoint!),
-                                                      radius: 5,
+                                                      y: minPoint! + 2),
+                                                      radius: 4,
                                                       startAngle: 0,
                                                       endAngle: .pi * 2,
                                                       clockwise: true)
@@ -277,8 +281,7 @@ extension ChartView {
                 if idx > locations.count / 2 {
                     x = x - (size.width)
                 }
-    
-                print("x", x)
+
                 _infoView!.frame = CGRect(origin: CGPoint(x: x, y: infoViewY), size: size)
                 
                 addSubview(_infoView!)

@@ -17,7 +17,7 @@ struct APIEndpoints {
     }
     
     static func getCitiBank(with dto: CitiBankRequestDTO) -> EndPoint<CitiBankResponseDTO> {
-        return EndPoint(path: nil,
+        return EndPoint(path: CitiBankAPI.path,
                         method: .get,
                         queryEncodable: nil,
                         header: [:],

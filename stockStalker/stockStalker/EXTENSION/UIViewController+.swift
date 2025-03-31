@@ -8,6 +8,25 @@
 import UIKit
 import SwiftUI
 
+protocol Reusable {}
+
+extension Reusable {
+    static var reuseID: String {
+        return String(describing: self)
+    }
+}
+
+extension UIViewController: Reusable {}
+
+extension UIStoryboard {
+    func createVC<T>(ofType type: T.Type = T.self) -> T where T: UIViewController {
+        guard let vc = instantiateViewController(withIdentifier: type.reuseID) as? T else {
+            fatalError()
+        }
+        return vc
+    }
+}
+
 extension UIViewController {
     
     func showError(message: String, completion: (() -> Void)? = nil) {
